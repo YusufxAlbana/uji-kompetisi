@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rumah Makan — Kayu Jati</title>
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" href="assets/images/logo.png" type="image/png"/>
+
+  <script>
+    tailwind.config = { safelist: ['-translate-y-full'] }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans bg-[#FEFEFE] text-[#181818]">
+<!-- navbar -->
+<header id="navbar" class="fixed top-0 left-0 right-0 bg-[#FEFEFE] shadow z-50 transition-transform duration-300">
+  <div class="max-w-6xl mx-auto flex justify-between items-center px-10 py-4">
+
+    <a href="#" class="flex items-center shrink-0">
+      <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain mr-3">
+      <h1 class="text-2xl font-bold text-[#181818] hidden sm:block">
+        Rumah Makan <span class="text-[#C52235]">Kayu Jati</span>
+      </h1>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+      <a href="#" class="text-[#C52235] hover:text-[#C52235]">Home</a>
+      <a href="#" class="hover:text-[#C52235]">Menu</a>
+      <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Event Packages</a>
+      <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Catering & Nasi Box Packages</a>
+      <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Our Location</a>
+
+      <div class="flex items-center ml-4 gap-3">
+        
+        <a href="#" class="shrink-0" aria-label="Instagram">
+          <img src="assets/images/ig logo.jpg"
+               alt="Instagram"
+               class="w-6 h-6 object-contain overflow-hidden">
+        </a>
+
+        <a href="#" class="shrink-0" aria-label="WhatsApp">
+          <img src="assets/images/wa logo.jpg"
+               alt="WhatsApp"
+               class="w-6 h-6 object-contain overflow-hidden">
+        </a>
+
+      </div>
+    </nav>
+
+    <button class="md:hidden text-2xl" aria-label="Buka menu">☰</button>
+  </div>
+</header>
+
+
+<!-- sambuatan -->
+<section 
+  class="relative h-screen bg-cover bg-center flex items-center justify-center text-[#FEFEFE] text-center"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1920&q=80');
+    /* Tambahkan properti ini untuk membuat gambar tidak bergerak saat di-scroll */
+    background-attachment: fixed;
+  "
+>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="relative p-10 rounded-xl z-10">
+    <h2 class="text-4xl md:text-6xl font-bold mb-4">Sensasi Pedas Khas Nusantara</h2>
+    <p class="text-lg mb-6">Sambal autentik, cita rasa Indonesia sejati.</p>
+    <button class="bg-[#C52235] hover:bg-[#a81d2a] text-[#FEFEFE] px-6 py-3 rounded-lg font-semibold transition-colors">Lihat Menu</button>
+  </div>
+</section>
+ 
+<!-- Menu Section -->
+<section class="max-w-6xl mx-auto py-20 px-6">
+  <h2 class="text-3xl font-bold text-center mb-10">Menu Favorit Kami</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    
+    <!-- Menu 1 -->
+    <div class="bg-[#FEFEFE] shadow rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=80" class="w-full h-52 object-cover" alt="Ayam Sambal Bakar">
+      <div class="p-4">
+        <h3 class="font-bold text-lg">Ayam Sambal Bakar</h3>
+        <p class="text-[#181818] text-sm">Pedas, gurih, dan lezat dengan sambal bakar khas.</p>
+      </div>
+    </div>
+
+    <!-- Menu 2 -->
+    <div class="bg-[#FEFEFE] shadow rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1601050690597-1a0c0c47e1d7?auto=format&fit=crop&w=800&q=80" class="w-full h-52 object-cover" alt="Ikan Bakar Lombok Hijau">
+      <div class="p-4">
+        <h3 class="font-bold text-lg">Ikan Bakar Lombok Hijau</h3>
+        <p class="text-[#181818] text-sm">Ikan segar dibakar dengan sambal khas nusantara.</p>
+      </div>
+    </div>
+
+    <!-- Menu 3 -->
+    <div class="bg-[#FEFEFE] shadow rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1613145993485-1f52b1d8c47f?auto=format&fit=crop&w=800&q=80" class="w-full h-52 object-cover" alt="Tahu Tempe Sambal Matah">
+      <div class="p-4">
+        <h3 class="font-bold text-lg">Tahu Tempe Sambal Matah</h3>
+        <p class="text-[#181818] text-sm">Kombinasi sederhana, rasa luar biasa.</p>
+      </div>
+    </div>
+
+    <!-- Menu 4 -->
+    <div class="bg-[#FEFEFE] shadow rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1608032079439-cd54fbb48b70?auto=format&fit=crop&w=800&q=80" class="w-full h-52 object-cover" alt="Sate Ayam Madura">
+      <div class="p-4">
+        <h3 class="font-bold text-lg">Sate Ayam Madura</h3>
+        <p class="text-[#181818] text-sm">Daging ayam empuk dengan bumbu kacang gurih.</p>
+      </div>
+    </div>
+
+    <!-- Menu 5 -->
+    <div class="bg-[#FEFEFE] shadow rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1572441710534-680d03b74b28?auto=format&fit=crop&w=800&q=80" class="w-full h-52 object-cover" alt="Nasi Goreng Spesial">
+      <div class="p-4">
+        <h3 class="font-bold text-lg">Nasi Goreng Spesial</h3>
+        <p class="text-[#181818] text-sm">Nasi goreng khas dengan topping lengkap dan rasa autentik.</p>
+      </div>
+    </div>
+
+    <!-- Menu 6 -->
+    <div class="bg-[#FEFEFE] shadow rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1601049676901-45a6d1924a82?auto=format&fit=crop&w=800&q=80" class="w-full h-52 object-cover" alt="Es Teh Manis">
+      <div class="p-4">
+        <h3 class="font-bold text-lg">Es Teh Manis</h3>
+        <p class="text-[#181818] text-sm">Pelepas dahaga yang segar dan manis alami.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- End Menu Section -->
+
+  <!-- Tentang -->
+  <section class="bg-[#FEFEFE] py-20 px-6">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <img src="https://images.unsplash.com/photo-1555992336-cbf9cc7836c1?auto=format&fit=crop&w=900&q=80" class="rounded-xl shadow" alt="Restoran">
+      <div>
+        <h2 class="text-3xl font-bold mb-4 text-[#C52235]">Tentang Kami</h2>
+        <p class="text-[#181818]">Kami menghadirkan cita rasa sambal autentik khas Indonesia dalam suasana modern namun tetap hangat seperti rumah. Dimasak dengan bahan segar dan resep turun-temurun yang menggugah selera.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#181818] text-[#FEFEFE] text-center py-6">
+    <p> 2025 Sambal Nusantara — Cita Rasa Autentik Indonesia</p>
+  </footer>
+
+  <!-- navbar Scroll -->
+  <script>
+    (function () {
+      const header = document.getElementById('navbar');
+      if (!header) return;
+      let lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      let ticking = false;
+      const threshold = 20;
+      
+      function update() {
+        const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (currentY > lastY && currentY > threshold) {
+          header.classList.add('-translate-y-full');
+        } else {
+          header.classList.remove('-translate-y-full');
+        }
+        lastY = currentY;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+    </script>
+    <!-- end navbar Scroll -->
+
+</body>
+</html>
