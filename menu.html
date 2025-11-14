@@ -17,16 +17,16 @@
 <body class="font-sans bg-[#FEFEFE] text-[#181818]">
 
   <!-- navbar -->
-<header id="navbar" class="fixed top-0 left-0 right-0 bg-[#FEFEFE] shadow z-50 transition-transform duration-300">
-  <div class="max-w-6xl mx-auto flex justify-between items-center px-10 py-4">
-
-    <a href="#" class="flex items-center shrink-0">
-      <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain mr-3">
+  <header id="navbar" class="fixed top-0 left-0 right-0 bg-[#FEFEFE] shadow z-50 transition-transform duration-300">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-10 py-4">
+      
+      <a href="#" class="flex items-center shrink-0">
+        <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain mr-3">
       <h1 class="text-2xl font-bold text-[#181818] hidden sm:block">
         Rumah Makan <span class="text-[#C52235]">Kayu Jati</span>
       </h1>
     </a>
-
+    
     <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
       <a href="#" class="hover:text-[#C52235] hover:text-[#C52235]">Home</a>
       <a href="#" class="text-[#C52235]">Menu</a>
@@ -54,20 +54,51 @@
     <button class="md:hidden text-2xl" aria-label="Buka menu">☰</button>
   </div>
 </header>
- 
+<!-- end navbar -->
+
+ <!-- menu -->
+<style>
+  /* CSS Kustom untuk Menyembunyikan Scrollbar */
+  /* Untuk WebKit (Chrome, Safari, Edge) */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Untuk IE dan Edge (khusus) */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+</style>
+
 <main class="container mx-auto px-4 py-8 mt-16">
+  
   <h2 class="text-3xl font-bold text-center text-[#C52235] mb-8 mt-12">Daftar Menu Kayu Jati</h2>
 
-  <div class="flex justify-center gap-4 mb-8">
-    <button class="px-6 py-2 border border-[#C52235] rounded-full bg-[#C52235] text-white transition-colors duration-300">Semua</button>
-    <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white transition-colors duration-300">Ayam</button>
-    <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white transition-colors duration-300">Ikan</button>
-    <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white transition-colors duration-300">Sayuran</button>
-    <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white transition-colors duration-300">Minuman</button>
-  </div>
-
-  <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8">
+  <div class="relative mb-10 overflow-hidden">
     
+    <button id="scroll-left" class="absolute left-0 top-0 bottom-0 px-2 flex items-center bg-white/70 hover:bg-white/90 z-10 transition-colors cursor-pointer rounded-r-md">
+      <svg class="w-6 h-6 text-[#C52235]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+
+    <div id="category-scroller" class="flex flex-nowrap overflow-x-auto gap-4 py-2 px-10 hide-scrollbar scroll-smooth">
+      
+      <button class="px-6 py-2 border border-[#C52235] rounded-full bg-[#C52235] text-white shrink-0 transition-colors duration-300">Semua</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Ayam</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Ikan</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Sayuran</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Minuman</button>
+
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Nasi & Mie</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Sup & Kuah</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Gorengan</button>
+      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Snacks</button>
+    </div>
+
+    <button id="scroll-right" class="absolute right-0 top-0 bottom-0 px-2 flex items-center bg-white/70 hover:bg-white/90 z-10 transition-colors cursor-pointer rounded-l-md">
+      <svg class="w-6 h-6 text-[#C52235]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+  <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8">
     <div class="w-full lg:w-1/2">
       <h3 class="text-xl font-bold text-[#181818] mb-4 text-center">Menu Favorit Kami</h3>
       <div class="bg-[#C52235] p-8 rounded-lg shadow-lg">
@@ -157,6 +188,27 @@
   </div>
 </main>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const scroller = document.getElementById('category-scroller');
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
+    const scrollAmount = 200; // Jarak scroll per klik (dalam piksel)
+
+    scrollRightBtn.addEventListener('click', function() {
+      scroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    scrollLeftBtn.addEventListener('click', function() {
+      scroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    
+    // Opsional: Sembunyikan/tampilkan tombol jika sudah di ujung scroll
+    // Anda bisa menambahkan logika lebih lanjut di sini untuk menyembunyikan tombol
+    // saat sudah mencapai batas scroll kiri/kanan.
+  });
+</script>
+
   <!-- navbar Scroll -->
   <script>
     (function () {
@@ -186,5 +238,10 @@
     })();
     </script>
     <!-- end navbar Scroll -->
+
+      <!-- Footer -->
+  <footer class="bg-[#181818] text-[#FEFEFE] text-center py-6">
+    <p> 2025 Sambal Nusantara — Cita Rasa Autentik Indonesia</p>
+  </footer>
 
 </body>
