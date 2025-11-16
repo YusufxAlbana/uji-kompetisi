@@ -25,14 +25,81 @@
      -ms-overflow-style: none;  /* IE and Edge */
      scrollbar-width: none;  /* Firefox */
    }
+   /* Rasio 9:16 untuk item foto */
+  .aspect-9-16 { aspect-ratio: 9 / 16; }
+  /* Cursor saat drag */
+  .grabbing { cursor: grabbing !important; }
+  /* Snap agar setiap foto rapat dan rata tepi */
+  #photo-scroller { scroll-snap-type: x mandatory; scroll-behavior: smooth; aspect-ratio: 9 / 16; height: auto; }
+  #photo-scroller.dragging { scroll-snap-type: none; }
+  #photo-scroller > .photo-item { scroll-snap-align: center; }
+  /* Cegah drag default pada image */
+  #photo-scroller img { -webkit-user-drag: none; user-select: none; }
+  /* Transisi dan highlight */
+  .photo-item { width: 100%; height: 100%; transition: transform .35s ease, filter .35s ease, opacity .35s ease; will-change: transform, filter; }
+  .photo-item.dim { filter: blur(2px) brightness(.65) saturate(.9); }
+  .photo-item.active { transform: scale(1.02); filter: none !important; z-index: 1; }
  </style>
 </head>
 
 <body class="font-sans bg-[#9F693A] text-white">
 
   <!-- navbar -->
-  <header id="navbar"></header>
+<header id="navbar" class="fixed top-0 left-0 right-0 bg-[#9F693A] shadow z-50 transition-transform duration-300">
+  <div class="max-w-6xl mx-auto flex justify-between items-center px-10 py-4">
+
+    <a href="#" class="flex items-center shrink-0">
+      <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain mr-3">
+      <h1 class="text-2xl font-bold text-[#181818] hidden sm:block">
+        Rumah Makan <span class="text-[#C52235]">Kayu Jati</span>
+      </h1>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+      <a href="#" class="text-[#C52235] hover:text-[#C52235]">Home</a>
+      <a href="#" class="hover:text-[#C52235]">Menu</a>
+      <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Event Packages</a>
+      <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Catering & Nasi Box Packages</a>
+      <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Our Location</a>
+
+      <div class="flex items-center ml-4 gap-3">
+        
+        <a href="#" class="shrink-0" aria-label="Instagram">
+          <img src="assets/images/ig logo.jpg"
+               alt="Instagram"
+               class="w-6 h-6 object-contain overflow-hidden">
+        </a>
+
+        <a href="#" class="shrink-0" aria-label="WhatsApp">
+          <img src="assets/images/wa logo.jpg"
+               alt="WhatsApp"
+               class="w-6 h-6 object-contain overflow-hidden">
+        </a>
+
+      </div>
+    </nav>
+
+    <button class="md:hidden text-2xl" aria-label="Buka menu">☰</button>
+  </div>
+</header>
 <!-- end navbar -->
+
+<!-- VIEW FOTO OF MENU -->
+<section aria-label="View Foto of Menu" class="mt-24">
+  <div id="photo-scroller" class="flex overflow-x-auto hide-scrollbar gap-0 px-0 h-[55vh] max-h-[560px] min-h-[260px] select-none cursor-grab">
+    <img src="assets/images/1.jpg" alt="Menu photo 1" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/2.jpg" alt="Menu photo 2" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/3.jpg" alt="Menu photo 3" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/1.jpg" alt="Menu photo 1" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/2.jpg" alt="Menu photo 2" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/3.jpg" alt="Menu photo 3" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/1.jpg" alt="Menu photo 1" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/2.jpg" alt="Menu photo 2" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <img src="assets/images/3.jpg" alt="Menu photo 3" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+  </div>
+  
+  <!-- Optional: indikator kecil -->
+</section>
 
 
 <!-- menu -->
@@ -83,6 +150,7 @@
     </button>
   </div>
 
+  <!-- kiri -->
   <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8">
 
     <div class="w-full lg:w-1/2 rounded-lg">
@@ -91,80 +159,707 @@
         <h4 class="text-2xl font-bold text-white mb-6">HOUSE SPECIALITY</h4>
         <ul class="space-y-4 text-white">
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Ayam Sambal Bakar</span><span class="font-bold">27K</span>
+            <span>Gurame Sup Kuning</span><span class="font-bold">128K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Tahu Tempe Sambal Matah</span><span class="font-bold">18K</span>
+            <span>Gurame Telur Asin Wangi</span><span class="font-bold">128K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Nasi Goreng Spesial</span><span class="font-bold">22K</span>
+            <span>Nila Pecak Rempah</span><span class="font-bold">60K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Sate Ayam Madura</span><span class="font-bold">25K</span>
-          </li>
-          <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Ikan Bakar Lombok Hijau</span><span class="font-bold">32K</span>
+            <span>Ayam Penyet Jati</span><span class="font-bold">42K</span>
           </li>
         </ul>
 
-        <h4 class="text-2xl font-bold text-white mt-8 mb-6">Minuman</h4>
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">FISH DISHES</h4>
         <ul class="space-y-4 text-white">
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Es Teh Manis</span><span class="font-bold">6K</span>
+            <span>Gurame Rujak Kecombrang</span><span class="font-bold">120K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Teh Hangat</span><span class="font-bold">5K</span>
+            <span>Kepala Kakap Sup Asam Pedas</span><span class="font-bold">135K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Es Jeruk</span><span class="font-bold">8K</span>
+            <span>Gurame Terbang Goreng</span><span class="font-bold">105K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Air Mineral</span><span class="font-bold">3K</span>
+            <span>Nila Lombok Hijau</span><span class="font-bold">70K</span>
           </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Nila Bakar Manis</span><span class="font-bold">55K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Nila Eco Tauco</span><span class="font-bold">60K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Pecak Rempah</span><span class="font-bold">110K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Bakar Manis</span><span class="font-bold">105K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Bakar Jimbaran</span><span class="font-bold">119K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Asam Manis</span><span class="font-bold">110K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Lombok Hijau</span><span class="font-bold">110K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Eco Tauco</span><span class="font-bold">105K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Gurame Sup Kecombrang</span><span class="font-bold">115K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ikan Peda Asin Goreng</span><span class="font-bold">15K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ikan Peda Cabai Hijau</span><span class="font-bold">22K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Kepala Kakap Sup Asam Pedas</span><span class="font-bold">135K</span>
+          </li>
+        </ul>
+
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">SHRIMP & SQUID DISHES</h4>
+        <ul class="space-y-4 text-white">
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Goreng Tepung</span><span class="font-bold">60K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Balon</span><span class="font-bold">55K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Telur Asin Wangi</span><span class="font-bold">50K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Bakar</span><span class="font-bold">60K</span>
+          </li>
+
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Cumi Telur Asin</span><span class="font-bold">55K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Cumi Asin Cabai Hijau</span><span class="font-bold">45K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Cumi Saus Padang</span><span class="font-bold">55K</span>
+          </li>
+
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Polos Balado</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Jengkol Balado</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Pete Balado</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Saus Mentega</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Saus Padang</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Udang Saus Tauco</span><span class="font-bold">38K</span>
+          </li>
+
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Cumi Goreng Tepung</span><span class="font-bold">55K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Cumi Saus Mentega</span><span class="font-bold">45K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Cumi Cabai Garam</span><span class="font-bold">45K</span>
+          </li>
+        </ul>
+
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">RICE DISHES</h4>
+        <ul class="space-y-4 text-white">
+          <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Kecombrang</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Seafood</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Ayam</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Kampung</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Putih</span><span class="font-bold">9K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Basmati</span><span class="font-bold">12.5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Ikan Teri Asin</span><span class="font-bold">30K</span>
+        </li>
+        </ul>
+        
+
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">NOODLES</h4>
+        <ul class="space-y-4 text-white">
+          <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Mi Goreng Seafood</span><span class="font-bold">38K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Mi Goreng Jogja</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Mi Jowo Solo Tigo</span><span class="font-bold">29K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Mi Goreng Ayam</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kwetiau Kuah Seafood</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bihun Goreng/Kuah Ayam</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kwetiau Goreng Seafood</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bihun Goreng/Kuah Seafood</span><span class="font-bold">35K</span>
+        </li>
+        </ul>
+
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">SIDE DISHES</h4>
+        <ul class="space-y-4 text-white">
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tempe Penyet</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bakwan Sayur</span><span class="font-bold">5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tahu Cabai Garam</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tempe Mendoan</span><span class="font-bold">6K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bakwan Udang</span><span class="font-bold">9K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tape Goreng</span><span class="font-bold">12K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Pisang Goreng</span><span class="font-bold">15K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Singkong Goreng</span><span class="font-bold">15K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Asinan Buah</span><span class="font-bold">17K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bakwan Jagung</span><span class="font-bold">5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bakwan Udang</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tahu Isi Goreng</span><span class="font-bold">15K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Bakwan Sayur</span><span class="font-bold">5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kerupuk Putih Kaleng</span><span class="font-bold">3K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tempe Goreng</span><span class="font-bold">5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Peyek</span><span class="font-bold">15K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Oseng Pucuk Labu</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Rempeyek</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Telur Dadar</span><span class="font-bold">12K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kerupuk Ikan/Rambak/Kulit</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Telur Ceplok</span><span class="font-bold">6K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jagung Goreng Keriting</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tahu Goreng</span><span class="font-bold">5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sosis Solo</span><span class="font-bold">19K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Tahu Penyet</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ubi Goreng</span><span class="font-bold">14K</span>
+        </li>
+        </ul>
+
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">KIDS MENU</h4>
+        <ul class="space-y-4 text-white">
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Katsu</span><span class="font-bold">38K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Chicken Cordon Bleu</span><span class="font-bold">45K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Nasi Goreng Sosis</span><span class="font-bold">45K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sosis Bakar</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Chicken Wings</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>French Fries</span><span class="font-bold">20K</span>
+        </li>
         </ul>
 
       </div>
     </div>
 
+    <!-- kanan -->
     <div class="w-full lg:w-1/2">
       <div class="bg-[#9F693A] p-8 rounded-lg shadow-lg">
 
-        <h4 class="text-2xl font-bold text-white mb-6">Paket Keluarga</h4>
+        <h4 class="text-2xl font-bold text-white mb-6">CHICKEN DISHES & MEAT DISH</h4>
         <ul class="space-y-4 text-white">
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Paket Nasi Ayam Bakar (2 orang)</span><span class="font-bold">50K</span>
+            <span>Ayam Goreng Bekakak Jati 1 Ekor</span><span class="font-bold">145K</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Paket Nasi Ikan Bakar (2 orang)</span><span class="font-bold">60K</span>
+            <span>Ayam Goreng Jati 1 Ekor</span><span class="font-bold">125</span>
           </li>
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Paket Komplit Berempat</span><span class="font-bold">120K</span>
+            <span>Ayam Bakar Jati</span><span class="font-bold">38K</span>
           </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Cabe Garam</span><span class="font-bold">40K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Cabai Hijau</span><span class="font-bold">42K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Iga Bakar Bajak Bali</span><span class="font-bold">125K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Goreng Jati</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Bakar Bekakak Jati 1 Ekor</span><span class="font-bold">145K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Bakar Jati 1 Ekor</span><span class="font-bold">133K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Saus Mentega</span><span class="font-bold">38K</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+            <span>Ayam Rica - Rica</span><span class="font-bold">40k</span>
+          </li>
+          <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ayam Balado</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Paru Goreng</span><span class="font-bold">40K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Paru Balado</span><span class="font-bold">45K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Soto Ayam</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Soto Daging</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Pindang Iga</span><span class="font-bold">105K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Lidah Rica-Rica</span><span class="font-bold">75K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Empal Ikat Jati</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Empal Cabai Hijau</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sup Iga Sapi</span><span class="font-bold">75K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Rawon</span><span class="font-bold">55K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Oseng Mercon</span><span class="font-bold">35K</span>
+        </li>
         </ul>
 
-        <h4 class="text-2xl font-bold text-white mt-8 mb-6">Tambahan (Additional)</h4>
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">VEGETABLES</h4>
         <ul class="space-y-4 text-white">
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Nasi Putih</span><span class="font-bold">5K</span>
-          </li>
+          <span>Oseng Bunga Pepaya</span><span class="font-bold">39K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Baby Buncis Ebi</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Tauge Ikan Asin</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kangkung Brambang Bawang</span><span class="font-bold">20K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Pete Goreng/Bakar</span><span class="font-bold">17K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Terong Balado</span><span class="font-bold">18K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Karedok</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jengkol Cabai Hijau</span><span class="font-bold">27K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jengkol Polos Balado</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jengkol Goreng Terasi</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Oseng Genjer</span><span class="font-bold">25K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Oseng Pucuk Labu</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Kangkung Polos</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Tauge Polos</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Baby Buncis</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Sawi Ijo</span><span class="font-bold">20K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Kangkung Terasi</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Bayam</span><span class="font-bold">20K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Capcay Goreng/Kuah Ayam</span><span class="font-bold">27K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Capcay Goreng/Kuah Seafood</span><span class="font-bold">35K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Cah Kangkung Seafood</span><span class="font-bold">25K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Urap</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Lalapan</span><span class="font-bold">15K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Oseng Jantung Pisang</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kangkung Brambang Asem</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Oseng Pucuk Labu</span><span class="font-bold">22K</span>
+        </li>
+        </ul>
+        
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">SAMBAL JATI</h4>
+        <ul class="space-y-4 text-white">
           <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Sambal Matah Extra</span><span class="font-bold">7K</span>
-          </li>
-          <li class="flex justify-between pb-2 border-b border-white/30">
-            <span>Kerupuk</span><span class="font-bold">3K</span>
-          </li>
+          <span>Sambal Mangga</span><span class="font-bold">7.5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sambal Terasi Dadakan</span><span class="font-bold">7K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sambal Nila Goreng</span><span class="font-bold">6.5K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sambal Pete</span><span class="font-bold">18K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sambal Korek Jati</span><span class="font-bold">5K</span>
+        </li>
+        </ul>
+
+        <h4 class="text-2xl font-bold text-white mt-8 mb-6">DRINKS</h4>
+        <ul class="space-y-4 text-white">
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Melon</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Sirsak</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Semangka</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Timun</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Wortel</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Mangga</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Stroberi</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Belimbing</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Buah Naga</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Alpukat</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Jambu</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jus Tomat</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Chocolate</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Chocolate</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Teh Manis</span><span class="font-bold">12K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Teh Tawar</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Teh Manis Panas</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Teh Tawar Panas</span><span class="font-bold">8K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Green Lime Squash</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Sweet Red</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Alpukat Kelapa Serut</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Pokat Serut</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jeruk Hangat</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Lemon Hangat</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Dawet Ireng</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Teh Leci</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Cincau Hitam</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Soda Gembira</span><span class="font-bold">15K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Kopyor Durian</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Jeruk</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Teh Tarik Panas</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Teh Tarik</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>1 Pitcher Es Teh Manis</span><span class="font-bold">45K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>1 Pitcher Es Teh Tawar</span><span class="font-bold">35K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>1 Pitcher Teh Tawar Panas</span><span class="font-bold">30K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Soft Drinks</span><span class="font-bold">9K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice/Hot Latte</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Cappuccino</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Americano</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Vanilla Lattee</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Espresso</span><span class="font-bold">12K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Americano</span><span class="font-bold">18K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Double Espresso</span><span class="font-bold">18K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Cappucino</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Mocha Latte</span><span class="font-bold">26K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Kopi Gula Aren</span><span class="font-bold">26K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Klepon Coffee</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Hazelnut Latte</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Mocha Latte</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Pandan Latte</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Kopi Gula Aren Panas</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Banana Latte</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Caramel Latte</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Hazelnut Latte</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Ice Caramel Latte</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Hot Vanilla Latte</span><span class="font-bold">23K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Kelapa Jeruk</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Kelapa Muda</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Campur</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Teler</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Lemon Ice</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Jeruk Nipis Hangat</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Jeruk Nipis</span><span class="font-bold">22K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Mangga Serut</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Pala Serut</span><span class="font-bold">28K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Wedang Seruni</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Teh Poci Pot</span><span class="font-bold">20K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Wedang Uwuh</span><span class="font-bold">25K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Wedang Telang</span><span class="font-bold">25K</span>
+        </li>
+
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Air Mineral 200ml</span><span class="font-bold">3K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Air Mineral 300ml</span><span class="font-bold">7K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Air Mineral 600ml</span><span class="font-bold">10K</span>
+        </li>
+        <li class="flex justify-between pb-2 border-b border-white/30">
+          <span>Es Batu</span><span class="font-bold">3K</span>
+        </li>
         </ul>
 
       </div>
     </div>
-
   </div>
 </main>
 
 <!-- Footer -->
 <footer id="footer"></footer>
 
-<!-- Navbar Scroll Smooth -->
+  <!-- navbar Scroll -->
   <script>
     (function () {
       const header = document.getElementById('navbar');
@@ -192,44 +887,114 @@
       }, { passive: true });
     })();
     </script>
-<!-- End Navbar Scroll Smooth -->
+    <!-- end navbar Scroll -->
 
-    
-    <!-- scroll bar menu -->
-<script>
-(function () {
-  const header = document.getElementById('navbar');
-  if (!header) return;
+    <!-- slider -->
 
-  let lastY = window.scrollY;
-  const sensitivity = 8;      // scroll minimal (prevent flicker)
-  const minTop = 80;          // jangan hide saat masih dekat atas
+    <script>
+      (function(){
+        const scroller = document.getElementById('photo-scroller');
+        if (!scroller) return;
 
-  window.addEventListener("scroll", () => {
-    const y = window.scrollY;
+        let isDown = false;
+        let startX = 0;
+        let lastX = 0;
+        let startScroll = 0;
+        let autoTimer = null;
+        let ticking = false;
 
-    // kalau masih di bagian atas — jangan hide
-    if (y < minTop) {
-      header.classList.remove("-translate-y-full");
-      lastY = y;
-      return;
-    }
+        const getItemWidth = () => scroller.querySelector('.photo-item')?.getBoundingClientRect().width || 0;
+        const getItems = () => Array.from(scroller.querySelectorAll('.photo-item'));
 
-    // scroll down → hide
-    if (y > lastY + sensitivity) {
-      header.classList.add("-translate-y-full");
-    }
+        function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-    // scroll up → show
-    if (y < lastY - sensitivity) {
-      header.classList.remove("-translate-y-full");
-    }
+        function activeIdx(){
+          const w = getItemWidth(); if (!w) return 0;
+          return clamp(Math.round(scroller.scrollLeft / w), 0, getItems().length - 1);
+        }
 
-    lastY = y;
-  });
-})();
-</script>
-    <!-- end scroll bar menu -->
+        function applyActive(){
+          const idx = activeIdx();
+          getItems().forEach((el, i) => {
+            if (i === idx) { el.classList.add('active'); el.classList.remove('dim'); }
+            else { el.classList.add('dim'); el.classList.remove('active'); }
+          });
+        }
+
+        function goTo(index){
+          const w = getItemWidth();
+          if (!w) return;
+          const total = getItems().length;
+          const target = clamp(index, 0, total - 1);
+          scroller.scrollTo({ left: target * w, behavior: 'smooth' });
+          requestAnimationFrame(() => setTimeout(applyActive, 350));
+        }
+
+        function next(){ const total = getItems().length; const idx = activeIdx(); goTo((idx + 1) % total); }
+        function prev(){ const total = getItems().length; const idx = activeIdx(); goTo((idx - 1 + total) % total); }
+
+        function startAuto(){ stopAuto(); autoTimer = setInterval(next, 5000); }
+        function stopAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+
+        // update highlight saat scroll (throttle)
+        scroller.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => { applyActive(); ticking = false; });
+        }, { passive: true });
+
+        // drag mouse
+        scroller.addEventListener('mousedown', (e) => {
+          isDown = true; startX = e.pageX; lastX = e.pageX; startScroll = scroller.scrollLeft;
+          scroller.classList.add('grabbing', 'dragging'); stopAuto();
+        });
+        window.addEventListener('mousemove', (e) => {
+          if (!isDown) return; lastX = e.pageX; scroller.scrollLeft = startScroll - (e.pageX - startX);
+        });
+        window.addEventListener('mouseup', () => {
+          if (!isDown) return; isDown = false; scroller.classList.remove('grabbing', 'dragging');
+          const w = getItemWidth();
+          if (w) {
+            const moved = lastX - startX;
+            const threshold = w * 0.2;
+            if (moved < -threshold) next();
+            else if (moved > threshold) prev();
+            else goTo(Math.round(startScroll / w));
+          }
+          startAuto();
+        });
+
+        // drag touch
+        scroller.addEventListener('touchstart', (e) => {
+          const t = e.touches[0]; isDown = true; startX = t.pageX; lastX = t.pageX; startScroll = scroller.scrollLeft;
+          scroller.classList.add('dragging'); stopAuto();
+        }, { passive: true });
+        scroller.addEventListener('touchmove', (e) => {
+          if (!isDown) return; const t = e.touches[0]; lastX = t.pageX; scroller.scrollLeft = startScroll - (t.pageX - startX);
+        }, { passive: true });
+        scroller.addEventListener('touchend', () => {
+          if (!isDown) return; isDown = false; scroller.classList.remove('dragging');
+          const w = getItemWidth();
+          if (w) {
+            const moved = lastX - startX;
+            const threshold = w * 0.2;
+            if (moved < -threshold) next();
+            else if (moved > threshold) prev();
+            else goTo(Math.round(startScroll / w));
+          }
+          startAuto();
+        });
+
+        // responsif: jaga posisi saat resize
+        window.addEventListener('resize', () => {
+          const w = getItemWidth(); if (!w) return; goTo(activeIdx());
+        });
+
+        applyActive();
+        startAuto();
+      })();
+    </script>
+
 
     <!-- mengatur template -->
       <script>
@@ -239,6 +1004,6 @@
       document.querySelector(selector).innerHTML = await resp.text();
     }
     loadHTML('#navbar', 'widgets/navbar.html');
-    loadHTML('#footer', 'widgets/footer.html');
+    loadHTML('#menu', 'widgets/all_menu.html');
   </script>
 </body>
