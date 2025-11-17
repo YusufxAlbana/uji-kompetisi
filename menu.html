@@ -30,14 +30,17 @@
   /* Cursor saat drag */
   .grabbing { cursor: grabbing !important; }
   /* Snap agar setiap foto rapat dan rata tepi */
-  #photo-scroller { scroll-snap-type: x mandatory; scroll-behavior: smooth; aspect-ratio: 9 / 16; height: auto; }
+  #photo-scroller { position: relative; scroll-snap-type: x mandatory; scroll-behavior: smooth; scroll-padding-left: 50%; scroll-padding-right: 50%; }
   #photo-scroller.dragging { scroll-snap-type: none; }
   #photo-scroller > .photo-item { scroll-snap-align: center; }
+  #photo-scroller::before, #photo-scroller::after { content: ""; position: absolute; top: 0; bottom: 0; width: clamp(24px, 12vw, 180px); pointer-events: none; z-index: 2; }
+  #photo-scroller::before { left: 0; background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0)); }
+  #photo-scroller::after { right: 0; background: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0)); }
   /* Cegah drag default pada image */
   #photo-scroller img { -webkit-user-drag: none; user-select: none; }
   /* Transisi dan highlight */
-  .photo-item { width: 100%; height: 100%; transition: transform .35s ease, filter .35s ease, opacity .35s ease; will-change: transform, filter; }
-  .photo-item.dim { filter: blur(2px) brightness(.65) saturate(.9); }
+  .photo-item { height: 100%; width: auto; transition: transform .35s ease, filter .35s ease, opacity .35s ease; will-change: transform, filter; }
+  .photo-item.dim { filter: blur(4px) brightness(.5) saturate(.85); }
   .photo-item.active { transform: scale(1.02); filter: none !important; z-index: 1; }
  </style>
 </head>
@@ -896,25 +899,59 @@
         const scroller = document.getElementById('photo-scroller');
         if (!scroller) return;
 
+        const initialNodes = Array.from(scroller.querySelectorAll('.photo-item'));
+        const seen = new Set();
+        const unique = [];
+        initialNodes.forEach(el => {
+          const src = el.getAttribute('src') || el.src;
+          if (!seen.has(src)) { seen.add(src); unique.push({ src, alt: el.getAttribute('alt') || '' }); }
+        });
+
+        scroller.innerHTML = '';
+        unique.forEach(({src, alt}, i) => {
+          const img = document.createElement('img');
+          img.className = 'photo-item aspect-9-16 h-full object-cover flex-none';
+          img.src = src; img.alt = alt || `Menu photo ${i+1}`;
+          scroller.appendChild(img);
+        });
+
+        const originals = Array.from(scroller.querySelectorAll('.photo-item'));
+        const baseLen = originals.length;
+        const beforeFrag = document.createDocumentFragment();
+        const afterFrag = document.createDocumentFragment();
+        originals.forEach(el => { beforeFrag.appendChild(el.cloneNode(true)); });
+        originals.forEach(el => { afterFrag.appendChild(el.cloneNode(true)); });
+        scroller.prepend(beforeFrag);
+        scroller.append(afterFrag);
+        const BASE_START = baseLen;
+
         let isDown = false;
         let startX = 0;
         let lastX = 0;
         let startScroll = 0;
         let autoTimer = null;
         let ticking = false;
+        let prevScrollLeft = 0;
+        let wrapping = false;
 
-        const getItemWidth = () => scroller.querySelector('.photo-item')?.getBoundingClientRect().width || 0;
         const getItems = () => Array.from(scroller.querySelectorAll('.photo-item'));
-
+        const getItemWidth = () => getItems()[0]?.getBoundingClientRect().width || 0;
         function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-        function activeIdx(){
-          const w = getItemWidth(); if (!w) return 0;
-          return clamp(Math.round(scroller.scrollLeft / w), 0, getItems().length - 1);
+        function centerIndex(){
+          const items = getItems(); if (!items.length) return 0;
+          const viewportCenter = scroller.scrollLeft + scroller.clientWidth / 2;
+          let best = 0, bestDist = Infinity;
+          items.forEach((el, i) => {
+            const elCenter = el.offsetLeft + el.offsetWidth / 2;
+            const d = Math.abs(elCenter - viewportCenter);
+            if (d < bestDist) { bestDist = d; best = i; }
+          });
+          return best;
         }
 
         function applyActive(){
-          const idx = activeIdx();
+          const idx = centerIndex();
           getItems().forEach((el, i) => {
             if (i === idx) { el.classList.add('active'); el.classList.remove('dim'); }
             else { el.classList.add('dim'); el.classList.remove('active'); }
@@ -922,28 +959,49 @@
         }
 
         function goTo(index){
-          const w = getItemWidth();
-          if (!w) return;
-          const total = getItems().length;
+          const items = getItems(); const total = items.length;
+          if (!total) return;
           const target = clamp(index, 0, total - 1);
-          scroller.scrollTo({ left: target * w, behavior: 'smooth' });
+          const el = items[target];
+          const left = el.offsetLeft - (scroller.clientWidth - el.clientWidth) / 2;
+          scroller.scrollTo({ left, behavior: 'smooth' });
           requestAnimationFrame(() => setTimeout(applyActive, 350));
         }
 
-        function next(){ const total = getItems().length; const idx = activeIdx(); goTo((idx + 1) % total); }
-        function prev(){ const total = getItems().length; const idx = activeIdx(); goTo((idx - 1 + total) % total); }
+        function jumpTo(index){
+          const items = getItems(); const total = items.length;
+          if (!total) return;
+          const target = clamp(index, 0, total - 1);
+          const el = items[target];
+          const left = el.offsetLeft - (scroller.clientWidth - el.clientWidth) / 2;
+          scroller.scrollTo({ left, behavior: 'auto' });
+          applyActive();
+        }
+
+        function next(){ ensureRightCapacity(); goTo(centerIndex() + 1); }
+        function prev(){ goTo(centerIndex() - 1); }
 
         function startAuto(){ stopAuto(); autoTimer = setInterval(next, 5000); }
         function stopAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
 
-        // update highlight saat scroll (throttle)
+        function appendCycleRight(){
+          const frag = document.createDocumentFragment();
+          originals.forEach(el => frag.appendChild(el.cloneNode(true)));
+          scroller.append(frag);
+        }
+        function ensureRightCapacity(){
+          const items = getItems();
+          const idx = centerIndex();
+          const remaining = items.length - idx - 1;
+          if (remaining < baseLen + 2) appendCycleRight();
+        }
+
         scroller.addEventListener('scroll', () => {
           if (ticking) return;
           ticking = true;
-          requestAnimationFrame(() => { applyActive(); ticking = false; });
+          requestAnimationFrame(() => { applyActive(); ensureRightCapacity(); ticking = false; });
         }, { passive: true });
 
-        // drag mouse
         scroller.addEventListener('mousedown', (e) => {
           isDown = true; startX = e.pageX; lastX = e.pageX; startScroll = scroller.scrollLeft;
           scroller.classList.add('grabbing', 'dragging'); stopAuto();
@@ -959,12 +1017,11 @@
             const threshold = w * 0.2;
             if (moved < -threshold) next();
             else if (moved > threshold) prev();
-            else goTo(Math.round(startScroll / w));
+            else goTo(centerIndex());
           }
           startAuto();
         });
 
-        // drag touch
         scroller.addEventListener('touchstart', (e) => {
           const t = e.touches[0]; isDown = true; startX = t.pageX; lastX = t.pageX; startScroll = scroller.scrollLeft;
           scroller.classList.add('dragging'); stopAuto();
@@ -980,17 +1037,14 @@
             const threshold = w * 0.2;
             if (moved < -threshold) next();
             else if (moved > threshold) prev();
-            else goTo(Math.round(startScroll / w));
+            else goTo(centerIndex());
           }
           startAuto();
         });
 
-        // responsif: jaga posisi saat resize
-        window.addEventListener('resize', () => {
-          const w = getItemWidth(); if (!w) return; goTo(activeIdx());
-        });
+        window.addEventListener('resize', () => { goTo(centerIndex()); });
 
-        applyActive();
+        jumpTo(BASE_START);
         startAuto();
       })();
     </script>
@@ -1004,6 +1058,6 @@
       document.querySelector(selector).innerHTML = await resp.text();
     }
     loadHTML('#navbar', 'widgets/navbar.html');
-    loadHTML('#menu', 'widgets/all_menu.html');
+    loadHTML('#menu', 'all_menu.html');
   </script>
 </body>
