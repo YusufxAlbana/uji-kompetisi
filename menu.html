@@ -105,19 +105,15 @@
 </section>
 
 
-<!-- menu -->
+<!-- kategori  judul -->
 <main class="container mx-auto px-4 py-8 mt-8">
 
   <div class="bg-[#5D4037] pt-4 pb-12">
     <h2 class="text-5xl font-extrabold text-center text-white mb-8 mt-12">Daftar Menu Kayu Jati</h2>
   </div>
 
-  <div class="relative mb-10 overflow-hidden -mt-10">
-    <button id="scroll-left" class="absolute left-0 top-0 bottom-0 px-2 flex items-center bg-[#A1887F] hover:bg-[#8D6E63] z-10 transition-colors cursor-pointer rounded-r-md">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-
-    <div id="category-scroller" class="flex flex-nowrap overflow-x-auto gap-4 py-2 px-10 hide-scrollbar scroll-smooth">
+  <div class="mb-10 -mt-10">
+    <div id="category-scroller" class="flex flex-nowrap overflow-x-auto gap-4 py-2 px-4 hide-scrollbar scroll-smooth cursor-grab select-none">
       
       <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] rounded-full bg-[#3E2723] text-white shrink-0 transition-colors duration-300" data-category="all">
         Semua
@@ -157,9 +153,6 @@
         Drinks
       </button>
     </div>
-    <button id="scroll-right" class="absolute right-0 top-0 bottom-0 px-2 flex items-center bg-[#A1887F] hover:bg-[#8D6E63] z-10 transition-colors cursor-pointer rounded-l-md">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-    </button>
   </div>
 
   <!-- Menu Grid 3 Kolom -->
@@ -175,6 +168,7 @@
 
 </main>
 
+<!-- daftar menu -->
 <script>
 // Data Menu
 const menuData = {
@@ -453,9 +447,66 @@ function renderMenu(category = 'all') {
   });
 }
 
+// Category drag functionality
+const categoryScroller = document.getElementById('category-scroller');
+let isDragging = false;
+let startX = 0;
+let scrollLeft = 0;
+
+categoryScroller.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  categoryScroller.classList.add('grabbing');
+  categoryScroller.style.cursor = 'grabbing';
+  startX = e.pageX - categoryScroller.offsetLeft;
+  scrollLeft = categoryScroller.scrollLeft;
+});
+
+categoryScroller.addEventListener('mouseleave', () => {
+  isDragging = false;
+  categoryScroller.classList.remove('grabbing');
+  categoryScroller.style.cursor = 'grab';
+});
+
+categoryScroller.addEventListener('mouseup', () => {
+  isDragging = false;
+  categoryScroller.classList.remove('grabbing');
+  categoryScroller.style.cursor = 'grab';
+});
+
+categoryScroller.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - categoryScroller.offsetLeft;
+  const walk = (x - startX) * 2;
+  categoryScroller.scrollLeft = scrollLeft - walk;
+});
+
+// Touch support for mobile
+categoryScroller.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  startX = e.touches[0].pageX - categoryScroller.offsetLeft;
+  scrollLeft = categoryScroller.scrollLeft;
+}, { passive: true });
+
+categoryScroller.addEventListener('touchend', () => {
+  isDragging = false;
+});
+
+categoryScroller.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  const x = e.touches[0].pageX - categoryScroller.offsetLeft;
+  const walk = (x - startX) * 2;
+  categoryScroller.scrollLeft = scrollLeft - walk;
+}, { passive: true });
+
 // Category filter
 document.querySelectorAll('.category-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
+  btn.addEventListener('click', function(e) {
+    // Prevent click if dragging
+    if (Math.abs(categoryScroller.scrollLeft - scrollLeft) > 5) {
+      return;
+    }
+    
     document.querySelectorAll('.category-btn').forEach(b => {
       b.classList.remove('bg-[#3E2723]', 'text-white');
       b.classList.add('bg-[#A1887F]', 'text-[#3E2723]');
