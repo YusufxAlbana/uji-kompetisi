@@ -30,18 +30,16 @@
   /* Cursor saat drag */
   .grabbing { cursor: grabbing !important; }
   /* Snap agar setiap foto rapat dan rata tepi */
-  #photo-scroller { position: relative; scroll-snap-type: x mandatory; scroll-behavior: smooth; scroll-padding-left: 50%; scroll-padding-right: 50%; }
+  #photo-scroller { position: relative; scroll-snap-type: x mandatory; scroll-behavior: smooth; scroll-padding-left: 50%; scroll-padding-right: 50%; height: clamp(420px, 75vh, 900px); touch-action: pan-y; }
   #photo-scroller.dragging { scroll-snap-type: none; }
   #photo-scroller > .photo-item { scroll-snap-align: center; }
-  #photo-scroller::before, #photo-scroller::after { content: ""; position: absolute; top: 0; bottom: 0; width: clamp(24px, 12vw, 180px); pointer-events: none; z-index: 2; }
-  #photo-scroller::before { left: 0; background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0)); }
-  #photo-scroller::after { right: 0; background: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0)); }
+  #photo-scroller::before, #photo-scroller::after { content: ""; position: absolute; top: 0; bottom: 0; width: 0; pointer-events: none; z-index: 2; }
+  #photo-scroller::before { left: 0; background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0)); }
+  #photo-scroller::after { right: 0; background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0)); }
   /* Cegah drag default pada image */
   #photo-scroller img { -webkit-user-drag: none; user-select: none; }
   /* Transisi dan highlight */
-  .photo-item { height: 100%; width: auto; transition: transform .35s ease, filter .35s ease, opacity .35s ease; will-change: transform, filter; }
-  .photo-item.dim { filter: blur(4px) brightness(.5) saturate(.85); }
-  .photo-item.active { transform: scale(1.02); filter: none !important; z-index: 1; }
+  .photo-item { height: 100%; width: auto; transition: transform .35s ease; will-change: transform; }
  </style>
 </head>
 
@@ -89,17 +87,10 @@
 
 <!-- VIEW FOTO OF MENU -->
 <section aria-label="View Foto of Menu" class="mt-24">
-  <div id="photo-scroller" class="flex overflow-x-auto hide-scrollbar gap-0 px-0 h-[55vh] max-h-[560px] min-h-[260px] select-none cursor-grab">
-    <img src="assets/images/1.jpg" alt="Menu photo 1" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/2.jpg" alt="Menu photo 2" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/3.jpg" alt="Menu photo 3" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/1.jpg" alt="Menu photo 1" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/2.jpg" alt="Menu photo 2" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/3.jpg" alt="Menu photo 3" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/1.jpg" alt="Menu photo 1" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/2.jpg" alt="Menu photo 2" class="photo-item aspect-9-16 h-full object-cover flex-none" />
-    <img src="assets/images/3.jpg" alt="Menu photo 3" class="photo-item aspect-9-16 h-full object-cover flex-none" />
+    <div class="bg-[#9F693A] pt-4 pb-12">
+    <h2 class="text-5xl font-extrabold text-center text-white mb-8 mt-12">Documentation Makanan</h2>
   </div>
+  <div id="photo-scroller" class="flex overflow-x-auto hide-scrollbar gap-0 px-0 select-none cursor-grab"></div>
   
   <!-- Optional: indikator kecil -->
 </section>
@@ -893,159 +884,96 @@
     <!-- end navbar Scroll -->
 
     <!-- slider -->
-
     <script>
       (function(){
         const scroller = document.getElementById('photo-scroller');
         if (!scroller) return;
+        
+        const menuImages = [
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0003.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0004.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0005.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0006.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0007.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0008.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0009.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0010.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0011.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0012.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0013.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0014.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0015.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0016.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0017.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0018.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0019.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0020.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0021.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0022.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0023.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0024.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0025.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0026.jpg',
+          'assets/images/menu/Rumah Makan Jati Menu Book (1)_pages-to-jpg-0027.jpg'
+        ];
 
-        const initialNodes = Array.from(scroller.querySelectorAll('.photo-item'));
-        const seen = new Set();
-        const unique = [];
-        initialNodes.forEach(el => {
-          const src = el.getAttribute('src') || el.src;
-          if (!seen.has(src)) { seen.add(src); unique.push({ src, alt: el.getAttribute('alt') || '' }); }
-        });
-
+        // Render gambar
         scroller.innerHTML = '';
-        unique.forEach(({src, alt}, i) => {
+        menuImages.forEach((src, i) => {
           const img = document.createElement('img');
-          img.className = 'photo-item aspect-9-16 h-full object-cover flex-none';
-          img.src = src; img.alt = alt || `Menu photo ${i+1}`;
+          img.className = 'photo-item h-full object-contain flex-none';
+          img.src = src;
+          img.alt = `Menu photo ${i+1}`;
           scroller.appendChild(img);
         });
 
-        const originals = Array.from(scroller.querySelectorAll('.photo-item'));
-        const baseLen = originals.length;
-        const beforeFrag = document.createDocumentFragment();
-        const afterFrag = document.createDocumentFragment();
-        originals.forEach(el => { beforeFrag.appendChild(el.cloneNode(true)); });
-        originals.forEach(el => { afterFrag.appendChild(el.cloneNode(true)); });
-        scroller.prepend(beforeFrag);
-        scroller.append(afterFrag);
-        const BASE_START = baseLen;
-
-        let isDown = false;
+        // Drag functionality
+        let isDragging = false;
         let startX = 0;
-        let lastX = 0;
-        let startScroll = 0;
-        let autoTimer = null;
-        let ticking = false;
-        let prevScrollLeft = 0;
-        let wrapping = false;
-
-        const getItems = () => Array.from(scroller.querySelectorAll('.photo-item'));
-        const getItemWidth = () => getItems()[0]?.getBoundingClientRect().width || 0;
-        function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-        function centerIndex(){
-          const items = getItems(); if (!items.length) return 0;
-          const viewportCenter = scroller.scrollLeft + scroller.clientWidth / 2;
-          let best = 0, bestDist = Infinity;
-          items.forEach((el, i) => {
-            const elCenter = el.offsetLeft + el.offsetWidth / 2;
-            const d = Math.abs(elCenter - viewportCenter);
-            if (d < bestDist) { bestDist = d; best = i; }
-          });
-          return best;
-        }
-
-        function applyActive(){
-          const idx = centerIndex();
-          getItems().forEach((el, i) => {
-            if (i === idx) { el.classList.add('active'); el.classList.remove('dim'); }
-            else { el.classList.add('dim'); el.classList.remove('active'); }
-          });
-        }
-
-        function goTo(index){
-          const items = getItems(); const total = items.length;
-          if (!total) return;
-          const target = clamp(index, 0, total - 1);
-          const el = items[target];
-          const left = el.offsetLeft - (scroller.clientWidth - el.clientWidth) / 2;
-          scroller.scrollTo({ left, behavior: 'smooth' });
-          requestAnimationFrame(() => setTimeout(applyActive, 350));
-        }
-
-        function jumpTo(index){
-          const items = getItems(); const total = items.length;
-          if (!total) return;
-          const target = clamp(index, 0, total - 1);
-          const el = items[target];
-          const left = el.offsetLeft - (scroller.clientWidth - el.clientWidth) / 2;
-          scroller.scrollTo({ left, behavior: 'auto' });
-          applyActive();
-        }
-
-        function next(){ ensureRightCapacity(); goTo(centerIndex() + 1); }
-        function prev(){ goTo(centerIndex() - 1); }
-
-        function startAuto(){ stopAuto(); autoTimer = setInterval(next, 5000); }
-        function stopAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
-
-        function appendCycleRight(){
-          const frag = document.createDocumentFragment();
-          originals.forEach(el => frag.appendChild(el.cloneNode(true)));
-          scroller.append(frag);
-        }
-        function ensureRightCapacity(){
-          const items = getItems();
-          const idx = centerIndex();
-          const remaining = items.length - idx - 1;
-          if (remaining < baseLen + 2) appendCycleRight();
-        }
-
-        scroller.addEventListener('scroll', () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(() => { applyActive(); ensureRightCapacity(); ticking = false; });
-        }, { passive: true });
+        let scrollLeft = 0;
 
         scroller.addEventListener('mousedown', (e) => {
-          isDown = true; startX = e.pageX; lastX = e.pageX; startScroll = scroller.scrollLeft;
-          scroller.classList.add('grabbing', 'dragging'); stopAuto();
-        });
-        window.addEventListener('mousemove', (e) => {
-          if (!isDown) return; lastX = e.pageX; scroller.scrollLeft = startScroll - (e.pageX - startX);
-        });
-        window.addEventListener('mouseup', () => {
-          if (!isDown) return; isDown = false; scroller.classList.remove('grabbing', 'dragging');
-          const w = getItemWidth();
-          if (w) {
-            const moved = lastX - startX;
-            const threshold = w * 0.2;
-            if (moved < -threshold) next();
-            else if (moved > threshold) prev();
-            else goTo(centerIndex());
-          }
-          startAuto();
+          isDragging = true;
+          scroller.classList.add('grabbing');
+          startX = e.pageX - scroller.offsetLeft;
+          scrollLeft = scroller.scrollLeft;
         });
 
+        scroller.addEventListener('mouseleave', () => {
+          isDragging = false;
+          scroller.classList.remove('grabbing');
+        });
+
+        scroller.addEventListener('mouseup', () => {
+          isDragging = false;
+          scroller.classList.remove('grabbing');
+        });
+
+        scroller.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          e.preventDefault();
+          const x = e.pageX - scroller.offsetLeft;
+          const walk = (x - startX) * 2;
+          scroller.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch support
         scroller.addEventListener('touchstart', (e) => {
-          const t = e.touches[0]; isDown = true; startX = t.pageX; lastX = t.pageX; startScroll = scroller.scrollLeft;
-          scroller.classList.add('dragging'); stopAuto();
+          isDragging = true;
+          startX = e.touches[0].pageX - scroller.offsetLeft;
+          scrollLeft = scroller.scrollLeft;
         }, { passive: true });
-        scroller.addEventListener('touchmove', (e) => {
-          if (!isDown) return; const t = e.touches[0]; lastX = t.pageX; scroller.scrollLeft = startScroll - (t.pageX - startX);
-        }, { passive: true });
+
         scroller.addEventListener('touchend', () => {
-          if (!isDown) return; isDown = false; scroller.classList.remove('dragging');
-          const w = getItemWidth();
-          if (w) {
-            const moved = lastX - startX;
-            const threshold = w * 0.2;
-            if (moved < -threshold) next();
-            else if (moved > threshold) prev();
-            else goTo(centerIndex());
-          }
-          startAuto();
+          isDragging = false;
         });
 
-        window.addEventListener('resize', () => { goTo(centerIndex()); });
-
-        jumpTo(BASE_START);
-        startAuto();
+        scroller.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          const x = e.touches[0].pageX - scroller.offsetLeft;
+          const walk = (x - startX) * 2;
+          scroller.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
       })();
     </script>
 
