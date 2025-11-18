@@ -25,25 +25,49 @@
      -ms-overflow-style: none;  /* IE and Edge */
      scrollbar-width: none;  /* Firefox */
    }
+   /* Rasio 9:16 untuk item foto */
+  .aspect-9-16 { aspect-ratio: 9 / 16; }
+  /* Cursor saat drag */
+  .grabbing { cursor: grabbing !important; }
+  /* Snap agar setiap foto rapat dan rata tepi */
+  #photo-scroller { position: relative; scroll-snap-type: x mandatory; scroll-behavior: smooth; scroll-padding-left: 50%; scroll-padding-right: 50%; height: clamp(420px, 75vh, 900px); touch-action: pan-y; }
+  #photo-scroller.dragging { scroll-snap-type: none; }
+  #photo-scroller > .photo-item { scroll-snap-align: center; }
+  #photo-scroller::before, #photo-scroller::after { content: ""; position: absolute; top: 0; bottom: 0; width: 0; pointer-events: none; z-index: 2; }
+  #photo-scroller::before { left: 0; background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0)); }
+  #photo-scroller::after { right: 0; background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0)); }
+  /* Cegah drag default pada image */
+  #photo-scroller img { -webkit-user-drag: none; user-select: none; }
+  /* Transisi dan highlight */
+  .photo-item { height: 100%; width: auto; transition: transform .35s ease; will-change: transform; }
+  
+  /* Menu Card Hover Effect */
+  .menu-card {
+    transition: all 0.3s ease;
+  }
+  .menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+  }
  </style>
 </head>
 
-<body class="font-sans bg-[#FEFEFE] text-[#181818]">
+<body class="font-sans bg-[#5D4037] text-white"></body>
 
   <!-- navbar -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 bg-[#FEFEFE] shadow z-50 transition-transform duration-300">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-10 py-4">
-      
-      <a href="#" class="flex items-center shrink-0">
-        <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain mr-3">
+<header id="navbar" class="fixed top-0 left-0 right-0 bg-[#5D4037] shadow z-50 transition-transform duration-300">
+  <div class="max-w-6xl mx-auto flex justify-between items-center px-10 py-4">
+
+    <a href="#" class="flex items-center shrink-0">
+      <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain mr-3">
       <h1 class="text-2xl font-bold text-[#181818] hidden sm:block">
         Rumah Makan <span class="text-[#C52235]">Kayu Jati</span>
       </h1>
     </a>
-    
+
     <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
-      <a href="#" class="hover:text-[#C52235] hover:text-[#C52235]">Home</a>
-      <a href="#" class="text-[#C52235]">Menu</a>
+      <a href="#" class="text-[#C52235] hover:text-[#C52235]">Home</a>
+      <a href="#" class="hover:text-[#C52235]">Menu</a>
       <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Event Packages</a>
       <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Catering & Nasi Box Packages</a>
       <a href="#" class="hover:text-[#C52235] whitespace-nowrap">Our Location</a>
@@ -70,133 +94,441 @@
 </header>
 <!-- end navbar -->
 
-
-
-<main class="container mx-auto px-4 py-8 mt-16">
+<!-- VIEW FOTO OF MENU -->
+<section aria-label="View Foto of Menu" class="mt-24">
+    <div class="bg-[#5D4037] pt-4 pb-12">
+    <h2 class="text-5xl font-extrabold text-center text-white mb-8 mt-12">Documentation Makanan</h2>
+  </div>
+  <div id="photo-scroller" class="flex overflow-x-auto hide-scrollbar gap-0 px-0 select-none cursor-grab"></div>
   
-  <h2 class="text-3xl font-bold text-center text-[#C52235] mb-8 mt-12">Daftar Menu Kayu Jati</h2>
+  <!-- Optional: indikator kecil -->
+</section>
 
-  <div class="relative mb-10 overflow-hidden">
-    
-    <button id="scroll-left" class="absolute left-0 top-0 bottom-0 px-2 flex items-center bg-white/70 hover:bg-white/90 z-10 transition-colors cursor-pointer rounded-r-md">
-      <svg class="w-6 h-6 text-[#C52235]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-    </button>
 
-    <div id="category-scroller" class="flex flex-nowrap overflow-x-auto gap-4 py-2 px-10 hide-scrollbar scroll-smooth">
+<!-- kategori  judul -->
+<main class="container mx-auto px-4 py-8 mt-8">
+
+  <div class="bg-[#5D4037] pt-4 pb-12">
+    <h2 class="text-5xl font-extrabold text-center text-white mb-8 mt-12">Daftar Menu Kayu Jati</h2>
+  </div>
+
+  <div class="mb-10 -mt-10">
+    <div id="category-scroller" class="flex flex-nowrap overflow-x-auto gap-4 py-2 px-4 hide-scrollbar scroll-smooth cursor-grab select-none">
       
-      <button class="px-6 py-2 border border-[#C52235] rounded-full bg-[#C52235] text-white shrink-0 transition-colors duration-300">Semua</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Ayam</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Ikan</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Sayuran</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Minuman</button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] rounded-full bg-[#3E2723] text-white shrink-0 transition-colors duration-300" data-category="all">
+        Semua
+      </button>
 
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Nasi & Mie</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Sup & Kuah</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Gorengan</button>
-      <button class="px-6 py-2 border border-[#C52235] text-[#C52235] rounded-full hover:bg-[#C52235] hover:text-white shrink-0 transition-colors duration-300">Snacks</button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="house-speciality">
+        House Speciality
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="fish-dishes">
+        Fish Dishes
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="shrimp-squid">
+        Shrimp & Squid Dishes
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="chicken-meat">
+        Chicken Dishes & Meat Dish
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="vegetables">
+        Vegetables
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="rice-dishes">
+        Rice Dishes
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="noodles">
+        Noodles
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="side-dishes">
+        Side Dishes
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="sambal">
+        Sambal Jati
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="kids-menu">
+        Kids Menu
+      </button>
+      <button class="category-btn font-bold px-6 py-2 border border-[#3E2723] bg-[#A1887F] text-[#3E2723] rounded-full hover:bg-[#3E2723] hover:text-white shrink-0 transition-colors duration-300" data-category="drinks">
+        Drinks
+      </button>
     </div>
-
-    <button id="scroll-right" class="absolute right-0 top-0 bottom-0 px-2 flex items-center bg-white/70 hover:bg-white/90 z-10 transition-colors cursor-pointer rounded-l-md">
-      <svg class="w-6 h-6 text-[#C52235]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-    </button>
   </div>
-  <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8">
-    <div class="w-full lg:w-1/2">
-      <h3 class="text-xl font-bold text-[#181818] mb-4 text-center">Menu Favorit Kami</h3>
-      <div class="bg-[#C52235] p-8 rounded-lg shadow-lg">
-        <h4 class="text-2xl font-bold text-white mb-6">Menu Utama</h4>
-        <ul class="space-y-4 text-white">
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Ayam Sambal Bakar</span>
-            <span class="font-bold">27K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Tahu Tempe Sambal Matah</span>
-            <span class="font-bold">18K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Nasi Goreng Spesial</span>
-            <span class="font-bold">22K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Sate Ayam Madura</span>
-            <span class="font-bold">25K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Ikan Bakar Lombok Hijau</span>
-            <span class="font-bold">32K</span>
-          </li>
-        </ul>
-        
-        <h4 class="text-2xl font-bold text-white mt-8 mb-6">Minuman</h4>
-        <ul class="space-y-4 text-white">
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Es Teh Manis</span>
-            <span class="font-bold">6K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Teh Hangat</span>
-            <span class="font-bold">5K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Es Jeruk</span>
-            <span class="font-bold">8K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Air Mineral</span>
-            <span class="font-bold">3K</span>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="w-full lg:w-1/2">
-      <h3 class="text-xl font-bold text-[#181818] mb-4 text-center">Promo & Paket Hemat</h3>
-      <div class="bg-[#C52235] p-8 rounded-lg shadow-lg">
-        <h4 class="text-2xl font-bold text-white mb-6">Paket Keluarga</h4>
-        <ul class="space-y-4 text-white">
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Paket Nasi Ayam Bakar (2 orang)</span>
-            <span class="font-bold">50K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Paket Nasi Ikan Bakar (2 orang)</span>
-            <span class="font-bold">60K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Paket Komplit Berempat</span>
-            <span class="font-bold">120K</span>
-          </li>
-        </ul>
+  <!-- Menu Grid 3 Kolom -->
+  <div id="menu-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
 
-        <h4 class="text-2xl font-bold text-white mt-8 mb-6">Tambahan (Additional)</h4>
-        <ul class="space-y-4 text-white">
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Nasi Putih</span>
-            <span class="font-bold">5K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Sambal Matah Extra</span>
-            <span class="font-bold">7K</span>
-          </li>
-          <li class="flex justify-between items-center pb-2 border-b border-white border-opacity-30">
-            <span>Kerupuk</span>
-            <span class="font-bold">3K</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
+  <!-- Tombol Pesan -->
+  <div class="text-center py-12">
+    <a href="https://wa.me/6281234567890" target="_blank" class="inline-block bg-[#A1887F] hover:bg-[#8D6E63] text-white font-bold text-lg px-12 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+      <svg class="inline-block w-6 h-6 mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Pesan Sekarang
+    </a>
   </div>
+
 </main>
+
+<!-- daftar menu -->
+<script>
+// Data Menu
+const menuData = {
+  'house-speciality': [
+    { name: 'Gurame Sup Kuning', price: '128K' },
+    { name: 'Gurame Telur Asin Wangi', price: '128K' },
+    { name: 'Nila Pecak Rempah', price: '60K' },
+    { name: 'Ayam Penyet Jati', price: '42K' }
+  ],
+  'fish-dishes': [
+    { name: 'Gurame Rujak Kecombrang', price: '120K' },
+    { name: 'Kepala Kakap Sup Asam Pedas', price: '135K' },
+    { name: 'Gurame Terbang Goreng', price: '105K' },
+    { name: 'Nila Lombok Hijau', price: '70K' },
+    { name: 'Nila Bakar Manis', price: '55K' },
+    { name: 'Nila Eco Tauco', price: '60K' },
+    { name: 'Gurame Pecak Rempah', price: '110K' },
+    { name: 'Gurame Bakar Manis', price: '105K' },
+    { name: 'Gurame Bakar Jimbaran', price: '119K' },
+    { name: 'Gurame Asam Manis', price: '110K' },
+    { name: 'Gurame Lombok Hijau', price: '110K' },
+    { name: 'Gurame Eco Tauco', price: '105K' },
+    { name: 'Gurame Sup Kecombrang', price: '115K' },
+    { name: 'Ikan Peda Asin Goreng', price: '15K' },
+    { name: 'Ikan Peda Cabai Hijau', price: '22K' }
+  ],
+  'shrimp-squid': [
+    { name: 'Udang Goreng Tepung', price: '60K' },
+    { name: 'Udang Balon', price: '55K' },
+    { name: 'Udang Telur Asin Wangi', price: '50K' },
+    { name: 'Udang Bakar', price: '60K' },
+    { name: 'Cumi Telur Asin', price: '55K' },
+    { name: 'Cumi Asin Cabai Hijau', price: '45K' },
+    { name: 'Cumi Saus Padang', price: '55K' },
+    { name: 'Udang Polos Balado', price: '38K' },
+    { name: 'Udang Jengkol Balado', price: '38K' },
+    { name: 'Udang Pete Balado', price: '38K' },
+    { name: 'Udang Saus Mentega', price: '38K' },
+    { name: 'Udang Saus Padang', price: '38K' },
+    { name: 'Udang Saus Tauco', price: '38K' },
+    { name: 'Cumi Goreng Tepung', price: '55K' },
+    { name: 'Cumi Saus Mentega', price: '45K' },
+    { name: 'Cumi Cabai Garam', price: '45K' }
+  ],
+  'chicken-meat': [
+    { name: 'Ayam Goreng Bekakak Jati 1 Ekor', price: '145K' },
+    { name: 'Ayam Goreng Jati 1 Ekor', price: '125K' },
+    { name: 'Ayam Bakar Jati', price: '38K' },
+    { name: 'Ayam Cabe Garam', price: '40K' },
+    { name: 'Ayam Cabai Hijau', price: '42K' },
+    { name: 'Iga Bakar Bajak Bali', price: '125K' },
+    { name: 'Ayam Goreng Jati', price: '38K' },
+    { name: 'Ayam Bakar Bekakak Jati 1 Ekor', price: '145K' },
+    { name: 'Ayam Bakar Jati 1 Ekor', price: '133K' },
+    { name: 'Ayam Saus Mentega', price: '38K' },
+    { name: 'Ayam Rica - Rica', price: '40K' },
+    { name: 'Ayam Balado', price: '35K' },
+    { name: 'Paru Goreng', price: '40K' },
+    { name: 'Paru Balado', price: '45K' },
+    { name: 'Soto Ayam', price: '20K' },
+    { name: 'Soto Daging', price: '22K' },
+    { name: 'Pindang Iga', price: '105K' },
+    { name: 'Lidah Rica-Rica', price: '75K' },
+    { name: 'Empal Ikat Jati', price: '30K' },
+    { name: 'Empal Cabai Hijau', price: '35K' },
+    { name: 'Sup Iga Sapi', price: '75K' },
+    { name: 'Rawon', price: '55K' },
+    { name: 'Oseng Mercon', price: '35K' }
+  ],
+  'vegetables': [
+    { name: 'Oseng Bunga Pepaya', price: '39K' },
+    { name: 'Cah Baby Buncis Ebi', price: '28K' },
+    { name: 'Cah Tauge Ikan Asin', price: '25K' },
+    { name: 'Kangkung Brambang Bawang', price: '20K' },
+    { name: 'Pete Goreng/Bakar', price: '17K' },
+    { name: 'Terong Balado', price: '18K' },
+    { name: 'Karedok', price: '22K' },
+    { name: 'Jengkol Cabai Hijau', price: '27K' },
+    { name: 'Jengkol Polos Balado', price: '25K' },
+    { name: 'Jengkol Goreng Terasi', price: '25K' },
+    { name: 'Oseng Genjer', price: '25K' },
+    { name: 'Oseng Pucuk Labu', price: '22K' },
+    { name: 'Cah Kangkung Polos', price: '20K' },
+    { name: 'Cah Tauge Polos', price: '20K' },
+    { name: 'Cah Baby Buncis', price: '22K' },
+    { name: 'Cah Sawi Ijo', price: '20K' },
+    { name: 'Cah Kangkung Terasi', price: '20K' },
+    { name: 'Cah Bayam', price: '20K' },
+    { name: 'Capcay Goreng/Kuah Ayam', price: '27K' },
+    { name: 'Capcay Goreng/Kuah Seafood', price: '35K' },
+    { name: 'Cah Kangkung Seafood', price: '25K' },
+    { name: 'Urap', price: '22K' },
+    { name: 'Lalapan', price: '15K' },
+    { name: 'Oseng Jantung Pisang', price: '25K' },
+    { name: 'Kangkung Brambang Asem', price: '20K' }
+  ],
+  'rice-dishes': [
+    { name: 'Nasi Goreng Kecombrang', price: '28K' },
+    { name: 'Nasi Goreng Seafood', price: '35K' },
+    { name: 'Nasi Goreng Ayam', price: '30K' },
+    { name: 'Nasi Goreng Kampung', price: '28K' },
+    { name: 'Nasi Putih', price: '9K' },
+    { name: 'Nasi Basmati', price: '12.5K' },
+    { name: 'Nasi Goreng Ikan Teri Asin', price: '30K' }
+  ],
+  'noodles': [
+    { name: 'Mi Goreng Seafood', price: '38K' },
+    { name: 'Mi Goreng Jogja', price: '35K' },
+    { name: 'Mi Jowo Solo Tigo', price: '29K' },
+    { name: 'Mi Goreng Ayam', price: '30K' },
+    { name: 'Kwetiau Kuah Seafood', price: '35K' },
+    { name: 'Bihun Goreng/Kuah Ayam', price: '30K' },
+    { name: 'Kwetiau Goreng Seafood', price: '35K' },
+    { name: 'Bihun Goreng/Kuah Seafood', price: '35K' }
+  ],
+  'side-dishes': [
+    { name: 'Tempe Penyet', price: '10K' },
+    { name: 'Bakwan Sayur', price: '5K' },
+    { name: 'Tahu Cabai Garam', price: '25K' },
+    { name: 'Tempe Mendoan', price: '6K' },
+    { name: 'Bakwan Udang', price: '9K' },
+    { name: 'Tape Goreng', price: '12K' },
+    { name: 'Pisang Goreng', price: '15K' },
+    { name: 'Singkong Goreng', price: '15K' },
+    { name: 'Asinan Buah', price: '17K' },
+    { name: 'Bakwan Jagung', price: '5K' },
+    { name: 'Tahu Isi Goreng', price: '15K' },
+    { name: 'Kerupuk Putih Kaleng', price: '3K' },
+    { name: 'Tempe Goreng', price: '5K' },
+    { name: 'Peyek', price: '15K' },
+    { name: 'Rempeyek', price: '10K' },
+    { name: 'Telur Dadar', price: '12K' },
+    { name: 'Kerupuk Ikan/Rambak/Kulit', price: '10K' },
+    { name: 'Telur Ceplok', price: '6K' },
+    { name: 'Jagung Goreng Keriting', price: '20K' },
+    { name: 'Tahu Goreng', price: '5K' },
+    { name: 'Sosis Solo', price: '19K' },
+    { name: 'Tahu Penyet', price: '10K' },
+    { name: 'Ubi Goreng', price: '14K' }
+  ],
+  'sambal': [
+    { name: 'Sambal Mangga', price: '7.5K' },
+    { name: 'Sambal Terasi Dadakan', price: '7K' },
+    { name: 'Sambal Nila Goreng', price: '6.5K' },
+    { name: 'Sambal Pete', price: '18K' },
+    { name: 'Sambal Korek Jati', price: '5K' }
+  ],
+  'kids-menu': [
+    { name: 'Nasi Goreng Katsu', price: '38K' },
+    { name: 'Chicken Cordon Bleu', price: '45K' },
+    { name: 'Nasi Goreng Sosis', price: '45K' },
+    { name: 'Sosis Bakar', price: '30K' },
+    { name: 'Chicken Wings', price: '35K' },
+    { name: 'French Fries', price: '20K' }
+  ],
+  'drinks': [
+    { name: 'Jus Melon', price: '20K' },
+    { name: 'Jus Sirsak', price: '20K' },
+    { name: 'Jus Semangka', price: '20K' },
+    { name: 'Jus Timun', price: '20K' },
+    { name: 'Jus Wortel', price: '20K' },
+    { name: 'Jus Mangga', price: '22K' },
+    { name: 'Jus Stroberi', price: '20K' },
+    { name: 'Jus Belimbing', price: '20K' },
+    { name: 'Jus Buah Naga', price: '22K' },
+    { name: 'Jus Alpukat', price: '25K' },
+    { name: 'Jus Jambu', price: '20K' },
+    { name: 'Jus Tomat', price: '20K' },
+    { name: 'Hot Chocolate', price: '23K' },
+    { name: 'Ice Chocolate', price: '25K' },
+    { name: 'Es Teh Manis', price: '12K' },
+    { name: 'Es Teh Tawar', price: '10K' },
+    { name: 'Teh Manis Panas', price: '10K' },
+    { name: 'Teh Tawar Panas', price: '8K' },
+    { name: 'Green Lime Squash', price: '25K' },
+    { name: 'Sweet Red', price: '22K' },
+    { name: 'Alpukat Kelapa Serut', price: '23K' },
+    { name: 'Es Pokat Serut', price: '25K' },
+    { name: 'Jeruk Hangat', price: '20K' },
+    { name: 'Lemon Hangat', price: '20K' },
+    { name: 'Es Dawet Ireng', price: '30K' },
+    { name: 'Es Teh Leci', price: '25K' },
+    { name: 'Es Cincau Hitam', price: '20K' },
+    { name: 'Soda Gembira', price: '15K' },
+    { name: 'Es Kopyor Durian', price: '30K' },
+    { name: 'Es Jeruk', price: '22K' },
+    { name: 'Teh Tarik Panas', price: '23K' },
+    { name: 'Es Teh Tarik', price: '25K' },
+    { name: '1 Pitcher Es Teh Manis', price: '45K' },
+    { name: '1 Pitcher Es Teh Tawar', price: '35K' },
+    { name: '1 Pitcher Teh Tawar Panas', price: '30K' },
+    { name: 'Soft Drinks', price: '9K' },
+    { name: 'Ice/Hot Latte', price: '23K' },
+    { name: 'Ice Cappuccino', price: '25K' },
+    { name: 'Ice Americano', price: '20K' },
+    { name: 'Ice Vanilla Lattee', price: '25K' },
+    { name: 'Espresso', price: '12K' },
+    { name: 'Hot Americano', price: '18K' },
+    { name: 'Double Espresso', price: '18K' },
+    { name: 'Hot Cappucino', price: '23K' },
+    { name: 'Hot Mocha Latte', price: '26K' },
+    { name: 'Es Kopi Gula Aren', price: '26K' },
+    { name: 'Ice Klepon Coffee', price: '28K' },
+    { name: 'Ice Hazelnut Latte', price: '25K' },
+    { name: 'Ice Mocha Latte', price: '28K' },
+    { name: 'Ice Pandan Latte', price: '23K' },
+    { name: 'Kopi Gula Aren Panas', price: '25K' },
+    { name: 'Ice Banana Latte', price: '23K' },
+    { name: 'Hot Caramel Latte', price: '23K' },
+    { name: 'Hot Hazelnut Latte', price: '23K' },
+    { name: 'Ice Caramel Latte', price: '25K' },
+    { name: 'Hot Vanilla Latte', price: '23K' },
+    { name: 'Es Kelapa Jeruk', price: '25K' },
+    { name: 'Es Kelapa Muda', price: '20K' },
+    { name: 'Es Campur', price: '25K' },
+    { name: 'Es Teler', price: '25K' },
+    { name: 'Lemon Ice', price: '22K' },
+    { name: 'Jeruk Nipis Hangat', price: '20K' },
+    { name: 'Es Jeruk Nipis', price: '22K' },
+    { name: 'Es Mangga Serut', price: '28K' },
+    { name: 'Es Pala Serut', price: '28K' },
+    { name: 'Wedang Seruni', price: '25K' },
+    { name: 'Teh Poci Pot', price: '20K' },
+    { name: 'Wedang Uwuh', price: '25K' },
+    { name: 'Wedang Telang', price: '25K' },
+    { name: 'Air Mineral 200ml', price: '3K' },
+    { name: 'Air Mineral 300ml', price: '7K' },
+    { name: 'Air Mineral 600ml', price: '10K' },
+    { name: 'Es Batu', price: '3K' }
+  ]
+};
+
+const categoryTitles = {
+  'house-speciality': 'HOUSE SPECIALITY',
+  'fish-dishes': 'FISH DISHES',
+  'shrimp-squid': 'SHRIMP & SQUID DISHES',
+  'chicken-meat': 'CHICKEN DISHES & MEAT DISH',
+  'vegetables': 'VEGETABLES',
+  'rice-dishes': 'RICE DISHES',
+  'noodles': 'NOODLES',
+  'side-dishes': 'SIDE DISHES',
+  'sambal': 'SAMBAL JATI',
+  'kids-menu': 'KIDS MENU',
+  'drinks': 'DRINKS'
+};
+
+// Render menu cards
+function renderMenu(category = 'all') {
+  const container = document.getElementById('menu-container');
+  container.innerHTML = '';
+  
+  const categoriesToShow = category === 'all' ? Object.keys(menuData) : [category];
+  
+  categoriesToShow.forEach(cat => {
+    const items = menuData[cat];
+    const title = categoryTitles[cat];
+    
+    // Category title card
+    const titleCard = document.createElement('div');
+    titleCard.className = 'col-span-full';
+    titleCard.innerHTML = `<h3 class="text-3xl font-bold text-[#A1887F] mb-4 mt-8">${title}</h3>`;
+    container.appendChild(titleCard);
+    
+    // Menu items
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'menu-card bg-[#6D4C41] p-6 rounded-lg shadow-lg';
+      card.innerHTML = `
+        <div class="flex justify-between items-center">
+          <h4 class="text-lg font-semibold text-white pr-4">${item.name}</h4>
+          <span class="text-xl font-bold text-[#A1887F] whitespace-nowrap">${item.price}</span>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  });
+}
+
+// Category drag functionality
+const categoryScroller = document.getElementById('category-scroller');
+let isDragging = false;
+let startX = 0;
+let scrollLeft = 0;
+
+categoryScroller.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  categoryScroller.classList.add('grabbing');
+  categoryScroller.style.cursor = 'grabbing';
+  startX = e.pageX - categoryScroller.offsetLeft;
+  scrollLeft = categoryScroller.scrollLeft;
+});
+
+categoryScroller.addEventListener('mouseleave', () => {
+  isDragging = false;
+  categoryScroller.classList.remove('grabbing');
+  categoryScroller.style.cursor = 'grab';
+});
+
+categoryScroller.addEventListener('mouseup', () => {
+  isDragging = false;
+  categoryScroller.classList.remove('grabbing');
+  categoryScroller.style.cursor = 'grab';
+});
+
+categoryScroller.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - categoryScroller.offsetLeft;
+  const walk = (x - startX) * 2;
+  categoryScroller.scrollLeft = scrollLeft - walk;
+});
+
+// Touch support for mobile
+categoryScroller.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  startX = e.touches[0].pageX - categoryScroller.offsetLeft;
+  scrollLeft = categoryScroller.scrollLeft;
+}, { passive: true });
+
+categoryScroller.addEventListener('touchend', () => {
+  isDragging = false;
+});
+
+categoryScroller.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  const x = e.touches[0].pageX - categoryScroller.offsetLeft;
+  const walk = (x - startX) * 2;
+  categoryScroller.scrollLeft = scrollLeft - walk;
+}, { passive: true });
+
+// Category filter
+document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    // Prevent click if dragging
+    if (Math.abs(categoryScroller.scrollLeft - scrollLeft) > 5) {
+      return;
+    }
+    
+    document.querySelectorAll('.category-btn').forEach(b => {
+      b.classList.remove('bg-[#3E2723]', 'text-white');
+      b.classList.add('bg-[#A1887F]', 'text-[#3E2723]');
+    });
+    this.classList.remove('bg-[#A1887F]', 'text-[#3E2723]');
+    this.classList.add('bg-[#3E2723]', 'text-white');
+    
+    const category = this.dataset.category;
+    renderMenu(category);
+  });
+});
+
+// Initial render
+renderMenu('all');
+</script>
+
 
 
 <!-- Footer -->
-<footer class="bg-[#181818] text-[#FEFEFE] text-center py-6">
-  <p> 2025 Sambal Nusantara — Cita Rasa Autentik Indonesia</p>
-</footer>
+<footer id="footer"></footer>
 
-<!-- navbar Scroll -->
+  <!-- navbar Scroll -->
   <script>
     (function () {
       const header = document.getElementById('navbar');
@@ -225,28 +557,110 @@
     })();
     </script>
     <!-- end navbar Scroll -->
-    
-    <!-- scroll bar menu -->
 
+    <!-- slider -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const scroller = document.getElementById('category-scroller');
-      const scrollLeftBtn = document.getElementById('scroll-left');
-      const scrollRightBtn = document.getElementById('scroll-right');
-      const scrollAmount = 200; // Jarak scroll per klik (dalam piksel)
-  
-      scrollRightBtn.addEventListener('click', function() {
-        scroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
-  
-      scrollLeftBtn.addEventListener('click', function() {
-        scroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-      
-      // Opsional: Sembunyikan/tampilkan tombol jika sudah di ujung scroll
-      // Anda bisa menambahkan logika lebih lanjut di sini untuk menyembunyikan tombol
-      // saat sudah mencapai batas scroll kiri/kanan.
-    });
+      (function(){
+        const scroller = document.getElementById('photo-scroller');
+        if (!scroller) return;
+        
+        const menuImages = [
+          'assets/images/menu/1.jpg',
+          'assets/images/menu/2.jpg',
+          'assets/images/menu/3.jpg',
+          'assets/images/menu/4.jpg',
+          'assets/images/menu/5.jpg',
+          'assets/images/menu/6.jpg',
+          'assets/images/menu/7.jpg',
+          'assets/images/menu/8.jpg',
+          'assets/images/menu/9.jpg',
+          'assets/images/menu/10.jpg',
+          'assets/images/menu/11.jpg',
+          'assets/images/menu/12.jpg',
+          'assets/images/menu/13.jpg',
+          'assets/images/menu/14.jpg',
+          'assets/images/menu/15.jpg',
+          'assets/images/menu/16.jpg',
+          'assets/images/menu/17.jpg',
+          'assets/images/menu/18.jpg',
+          'assets/images/menu/19.jpg',
+          'assets/images/menu/20.jpg',
+          'assets/images/menu/21.jpg',
+          'assets/images/menu/22.jpg',
+          'assets/images/menu/23.jpg',
+          'assets/images/menu/24.jpg',
+          'assets/images/menu/25.jpg'
+        ];
+
+        // Render gambar
+        scroller.innerHTML = '';
+        menuImages.forEach((src, i) => {
+          const img = document.createElement('img');
+          img.className = 'photo-item h-full object-contain flex-none';
+          img.src = src;
+          img.alt = `Menu photo ${i+1}`;
+          scroller.appendChild(img);
+        });
+
+        // Drag functionality
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+
+        scroller.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          scroller.classList.add('grabbing');
+          startX = e.pageX - scroller.offsetLeft;
+          scrollLeft = scroller.scrollLeft;
+        });
+
+        scroller.addEventListener('mouseleave', () => {
+          isDragging = false;
+          scroller.classList.remove('grabbing');
+        });
+
+        scroller.addEventListener('mouseup', () => {
+          isDragging = false;
+          scroller.classList.remove('grabbing');
+        });
+
+        scroller.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          e.preventDefault();
+          const x = e.pageX - scroller.offsetLeft;
+          const walk = (x - startX) * 2;
+          scroller.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch support
+        scroller.addEventListener('touchstart', (e) => {
+          isDragging = true;
+          startX = e.touches[0].pageX - scroller.offsetLeft;
+          scrollLeft = scroller.scrollLeft;
+        }, { passive: true });
+
+        scroller.addEventListener('touchend', () => {
+          isDragging = false;
+        });
+
+        scroller.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          const x = e.touches[0].pageX - scroller.offsetLeft;
+          const walk = (x - startX) * 2;
+          scroller.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
+      })();
+    </script>
+
+
+    <!-- mengatur template -->
+      <script>
+    async function loadHTML(selector, url) {
+      const resp = await fetch(url);
+      if (!resp.ok) return console.error('Gagal load', url);
+      document.querySelector(selector).innerHTML = await resp.text();
+    }
+    loadHTML('#navbar', 'widgets/navbar.html');
+    loadHTML('#menu', 'all_menu.html');
   </script>
-    <!-- end scroll bar menu -->
 </body>
