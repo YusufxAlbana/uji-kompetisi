@@ -58,40 +58,63 @@
 
 <body class="bg-[#9F693A] text-white">
 
-  <!-- navbar -->
+<!-- navbar -->
 <header id="navbar" class="fixed top-0 left-0 right-0 navbar-blur z-50 transition-transform duration-300">
-  <div class="max-w-7xl mx-auto flex justify-between items-center px-12 py-5">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 lg:px-12 py-4 md:py-5">
 
-    <a href="home.html" class="flex items-center gap-3 shrink-0">
-      <div class="w-1 h-12 bg-white rounded-full"></div>
-      <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain">
-      <h1 class="text-xl font-bold text-white hidden sm:flex items-center gap-2">
-        KAYU <span class="border-2 border-white px-4 py-2 rounded-xl">JATI</span>
+    <a href="home.html" class="flex items-center gap-2 md:gap-3 shrink-0">
+      <div class="w-1 h-10 md:h-12 bg-white rounded-full"></div>
+      <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+      <h1 class="text-lg md:text-xl font-bold text-white hidden sm:flex items-center gap-2">
+        KAYU <span class="border-2 border-white px-3 md:px-4 py-1 md:py-2 rounded-xl">JATI</span>
       </h1>
-      <div class="w-1 h-12 bg-white rounded-full hidden sm:block"></div>
+      <div class="w-1 h-10 md:h-12 bg-white rounded-full hidden sm:block"></div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-8 text-lg font-semibold">
-      <a href="home.html" class="text-white hover:text-gray-300 transition-colors">Home</a>
-      <a href="menu.html" class="text-white hover:text-gray-300 transition-colors">Menu</a>
-      <a href="#" class="text-white hover:text-gray-300 transition-colors whitespace-nowrap">Event Packages</a>
-      <a href="#" class="text-white hover:text-gray-300 transition-colors whitespace-nowrap">Catering & Nasi Box Packages</a>
-      <a href="#" class="text-white hover:text-gray-300 transition-colors whitespace-nowrap">Our Location</a>
+    <!-- Desktop Navigation -->
+    <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-base xl:text-lg font-semibold">
+      <a href="home.html" class="text-white hover:text-yellow-400 transition-colors">Home</a>
+      <a href="menu.html" class="text-white hover:text-yellow-400 transition-colors">Menu</a>
+      <a href="#packages" class="text-white hover:text-yellow-400 transition-colors whitespace-nowrap">Event Packages</a>
+      <a href="#catering" class="text-white hover:text-yellow-400 transition-colors whitespace-nowrap">Catering</a>
+      <a href="#location" class="text-white hover:text-yellow-400 transition-colors whitespace-nowrap">Lokasi</a>
 
-      <div class="flex items-center ml-8 gap-3">
-        
-        <a href="#" class="shrink-0" aria-label="Instagram">
-          <img src="assets/images/ig logo.jpg" alt="Instagram" class="w-6 h-6 object-contain overflow-hidden">
+      <div class="flex items-center ml-4 xl:ml-8 gap-3">
+        <a href="#" class="shrink-0 hover:scale-110 transition-transform" aria-label="Instagram">
+          <img src="assets/images/ig.png" alt="Instagram" class="w-6 h-6 object-contain">
         </a>
-
-        <a href="#" class="shrink-0" aria-label="WhatsApp">
-          <img src="assets/images/wa logo.jpg" alt="WhatsApp" class="w-6 h-6 object-contain overflow-hidden">
+        <a href="#" class="shrink-0 hover:scale-110 transition-transform" aria-label="WhatsApp">
+          <img src="assets/images/wa.png" alt="WhatsApp" class="w-6 h-6 object-contain">
         </a>
-
       </div>
     </nav>
 
-    <button class="md:hidden text-2xl text-white" aria-label="Buka menu">☰</button>
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="lg:hidden hamburger z-50" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full sm:w-80 h-screen bg-black/95 backdrop-blur-lg lg:hidden">
+    <nav class="flex flex-col gap-6 p-8 mt-20">
+      <a href="#home" class="mobile-menu-link text-white text-2xl font-semibold hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Home</a>
+      <a href="menu.html" class="mobile-menu-link text-white text-2xl font-semibold hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Menu</a>
+      <a href="#packages" class="mobile-menu-link text-white text-2xl font-semibold hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Event Packages</a>
+      <a href="#catering" class="mobile-menu-link text-white text-2xl font-semibold hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Catering & Nasi Box</a>
+      <a href="#location" class="mobile-menu-link text-white text-2xl font-semibold hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Lokasi Kami</a>
+      
+      <div class="flex items-center gap-6 mt-8">
+        <a href="#" class="hover:scale-110 transition-transform" aria-label="Instagram">
+          <img src="assets/images/ig.png" alt="Instagram" class="w-10 h-10 object-contain">
+        </a>
+        <a href="#" class="hover:scale-110 transition-transform" aria-label="WhatsApp">
+          <img src="assets/images/wa.png" alt="WhatsApp" class="w-10 h-10 object-contain">
+        </a>
+      </div>
+    </nav>
   </div>
 </header>
 
@@ -215,7 +238,6 @@
     
     const menuImages = [
       'assets/images/menu/1.jpg',
-      'assets/images/menu/w.jpg',
       'assets/images/menu/2.jpg',
       'assets/images/menu/3.jpg',
       'assets/images/menu/4.jpg',
@@ -238,7 +260,8 @@
       'assets/images/menu/21.jpg',
       'assets/images/menu/22.jpg',
       'assets/images/menu/23.jpg',
-      'assets/images/menu/24.jpg'
+      'assets/images/menu/24.jpg',
+      'assets/images/menu/25.jpg'
     ];
 
     scroller.innerHTML = '';
