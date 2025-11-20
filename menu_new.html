@@ -18,6 +18,11 @@
    * {
      font-family: 'Outfit', sans-serif;
    }
+   
+   h1, h2, h3 {
+     font-family: 'Times New Roman', Times, serif;
+   }
+   
    .navbar-blur {
      background: rgba(0, 0, 0, 0.3);
      backdrop-filter: blur(12px);
@@ -628,7 +633,7 @@ function renderMenu(category = 'all') {
               entry.target.classList.add('active');
             }
           });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
         observer.observe(card);
       }, 10);
     });
@@ -715,8 +720,8 @@ renderMenu('all');
 <script>
   // Intersection Observer untuk animasi scroll
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0,
+    rootMargin: '0px 0px 200px 0px'
   };
 
   const observer = new IntersectionObserver((entries) => {
