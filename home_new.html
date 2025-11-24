@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rumah Makan Jati</title>
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" href="assets/images/logo.png" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = { safelist: ['-translate-y-full'] }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      font-family: 'Outfit', sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    .navbar-blur {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: none;
+    }
+
+    /* Animasi fade in dari bawah */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animasi fade in dari kiri */
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Animasi fade in dari kanan */
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Animasi zoom in */
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Animasi untuk hero text */
+    .hero-title {
+      animation: fadeInLeft 1s ease-out 0.3s both;
+    }
+
+    .hero-subtitle {
+      animation: fadeInLeft 1s ease-out 0.6s both;
+    }
+
+    .hero-buttons {
+      animation: fadeInUp 1s ease-out 0.9s both;
+    }
+
+    .hero-favorites {
+      animation: zoomIn 1s ease-out 1.2s both;
+    }
+
+    /* Animasi untuk menu favorit items */
+    .fav-item-1 {
+      animation: fadeInUp 0.6s ease-out 1.5s both;
+    }
+
+    .fav-item-2 {
+      animation: fadeInUp 0.6s ease-out 1.7s both;
+    }
+
+    .fav-item-3 {
+      animation: fadeInUp 0.6s ease-out 1.9s both;
+    }
+
+    /* Class untuk scroll animations */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .scroll-animate.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hover effect untuk menu favorit */
+    .fav-menu-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .fav-menu-item:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+
+    .fav-menu-img {
+      transition: transform 0.3s ease;
+    }
+
+    .fav-menu-item:hover .fav-menu-img {
+      transform: scale(1.1);
+    }
+
+    /* Unified avatar for favorite items (samakan ukuran foto) */
+    .fav-avatar {
+      width: 9rem; /* 36 */
+      height: 9rem;
+      margin: 0 auto 1rem;
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 4px solid rgba(255,255,255,0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e5e7eb; /* fallback color */
+    }
+
+    .fav-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    /* Parallax effect untuk hero */
+    .parallax-bg {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Gradient overlay animation */
+    .gradient-overlay {
+      background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+      animation: gradientShift 3s ease infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+      }
+      100% {
+        background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.4) 100%);
+      }
+    }
+
+    /* Animasi untuk stats counter */
+    @keyframes countUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stat-item {
+      animation: countUp 0.8s ease-out both;
+    }
+
+    /* Animasi pulse untuk promo banner */
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .promo-badge {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Testimonial card hover */
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Star rating animation */
+    @keyframes starPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    .star-rating span:hover {
+      animation: starPulse 0.5s ease;
+    }
+
+    /* Floating animation untuk icon */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .float-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#FEFEFE] text-[#181818]">
+  <!-- navbar -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 navbar-blur z-50 transition-transform duration-300">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-12 py-5">
+
+      <a href="#" class="flex items-center gap-3 shrink-0">
+        <div class="w-1 h-12 bg-white rounded-full"></div>
+        <img src="assets/images/logo.png" alt="Logo rumah makan Kayu Jati" class="w-12 h-12 object-contain">
+        <h1 class="text-xl font-bold text-white hidden sm:flex items-center gap-2">
+           <span class="border-2 border-white px-4 py-2 rounded-xl">RUMAH MAKAN JATI</span>
+        </h1>
+        <div class="w-1 h-12 bg-white rounded-full hidden sm:block"></div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-lg font-semibold">
+        <a href="#" class="text-white hover:text-gray-300 transition-colors">Home</a>
+        <a href="#" class="text-white hover:text-gray-300 transition-colors">Menu</a>
+        <a href="#" class="text-white hover:text-gray-300 transition-colors whitespace-nowrap">Event Packages</a>
+        <a href="#" class="text-white hover:text-gray-300 transition-colors whitespace-nowrap">Catering & Nasi Box Packages</a>
+        <a href="#location" class="text-white hover:text-gray-300 transition-colors whitespace-nowrap">Our Location</a>
+
+        <div class="flex items-center ml-8 gap-3">
+          
+          <a href="#" class="shrink-0" aria-label="Instagram">
+            <img src="assets/images/ig.png"
+                 alt="Instagram"
+                 class="w-6 h-6 object-contain overflow-hidden">
+          </a>
+
+          <a href="#" class="shrink-0" aria-label="WhatsApp">
+            <img src="assets/images/wa.png"
+                 alt="WhatsApp"
+                 class="w-6 h-6 object-contain overflow-hidden">
+          </a>
+
+        </div>
+      </nav>
+
+      <button class="md:hidden text-2xl text-white" aria-label="Buka menu">☰</button>
+    </div>
+  </header>
+
+
+  <!-- Hero Section -->
+  <section 
+    class="relative h-screen bg-cover bg-center flex items-center justify-start text-white parallax-bg"
+    style="background-image: url('Screenshot\ 2025-11-20\ at\ 08.03.11.png');"
+  >
+    <div class="absolute inset-0 gradient-overlay"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-10 w-full">
+      <h2 class="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        Sensasi Pedas<br/>Khas Nusantara
+      </h2>
+      <p class="hero-subtitle text-2xl md:text-3xl mb-12 font-light">Sambal Autentik, cita rasa Indonesia sejati.</p>
+      
+      <div class="hero-buttons flex flex-wrap items-center gap-6 mb-16">
+        <a href="menu.html" class="px-10 py-4 rounded-xl font-bold text-white text-xl border-2 border-white/50 hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105" style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+          Lihat Menu
+        </a>
+        
+      </div>
+
+      <!-- Hero favorites removed from here; dipindah ke section terpisah di bawah -->
+    </div>
+  </section>
+
+  <!-- About Section (dipindah ke urutan awal setelah hero) -->
+  <section class="bg-white py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="scroll-animate flex items-center justify-center gap-6 mb-12">
+        <div class="w-2 h-16 bg-black rounded-full"></div>
+        <h2 class="text-4xl md:text-5xl font-bold border-4 border-black px-8 py-4 rounded-2xl inline-block">Tentang Kami</h2>
+        <div class="w-2 h-16 bg-black rounded-full"></div>
+      </div>
+      
+      <p class="scroll-animate text-lg md:text-xl leading-relaxed mb-16 text-center max-w-4xl mx-auto">
+        Rumah Makan Jati BSD adalah sebuah restoran yang berdiri
+  dengan tujuan menghadirkan cita rasa masakan khas Indonesia
+  yang autentik dan menggugah selera. Berawal dari kecintaan
+  terhadap kuliner nusantara, restoran ini didirikan pada tahun
+  2012 di BSD, Tangerang Selatan. Dengan suasana yang
+  nyaman dan nuansa tradisional, Rumah Makan Jati BSD
+  menjadi tempat yang cocok untuk menikmati hidangan khas
+  dengan resep turun-temurun.
+  <br>
+  Komitmen kami adalah untuk menjadi restoran pilihan
+  utama yang menyajikan masakan Indonesia berkualitas
+  dengan cita rasa otentik, serta memberikan pengalaman
+  bersantap yang nyaman dan berkesan bagi setiap
+
+  pelanggan.
+      </p>
+      
+      <div class="scroll-animate flex items-center justify-center gap-6 mb-12">
+        <div class="w-2 h-16 bg-black rounded-full"></div>
+        <h3 class="text-3xl md:text-4xl font-bold border-4 border-black px-8 py-4 rounded-2xl inline-block">Suasana Restoran</h3>
+        <div class="w-2 h-16 bg-black rounded-full"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="scroll-animate place-img rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <img src="assets/images/tempat/1.jpg" alt="Restaurant Interior 1" class="w-full h-80 object-cover">
+        </div>
+        <div class="scroll-animate place-img rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <img src="1260601.jpg" alt="Restaurant Interior 2" class="w-full h-80 object-cover">
+        </div>
+        <div class="scroll-animate place-img rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <img src="assets/images/tempat/3.png" alt="Restaurant Interior 3" class="w-full h-80 object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section (dipindah setelah About) -->
+  <section class="bg-gradient-to-b from-white to-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="scroll-animate text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Mengapa Memilih Kami?</h2>
+        <p class="text-xl text-gray-600">Pengalaman kuliner terbaik dengan standar kualitas tinggi</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="scroll-animate text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+          <div class="float-icon text-6xl mb-6">🌶️</div>
+          <h3 class="text-2xl font-bold mb-4">Resep Autentik</h3>
+          <p class="text-gray-600 leading-relaxed">Resep turun-temurun yang telah teruji selama puluhan tahun dengan cita rasa khas Nusantara yang otentik.</p>
+        </div>
+        
+        <div class="scroll-animate text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+          <div class="float-icon text-6xl mb-6" style="animation-delay: 0.5s">✨</div>
+          <h3 class="text-2xl font-bold mb-4">Bahan Berkualitas</h3>
+          <p class="text-gray-600 leading-relaxed">Menggunakan bahan-bahan segar pilihan terbaik yang dipilih langsung dari supplier terpercaya setiap hari.</p>
+        </div>
+        
+        <div class="scroll-animate text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+          <div class="float-icon text-6xl mb-6" style="animation-delay: 1s">👨‍🍳</div>
+          <h3 class="text-2xl font-bold mb-4">Chef Berpengalaman</h3>
+          <p class="text-gray-600 leading-relaxed">Tim chef profesional dengan pengalaman lebih dari 15 tahun di industri kuliner Indonesia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Favorit (dipisah dari hero dan ditempatkan setelah Mengapa Memilih Kami) -->
+  <section class="bg-white py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="hero-favorites inline-block px-10 py-8 rounded-2xl border-2 border-gray-200 transition-all duration-300">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <!-- Menu Favorit -->
+          <div>
+            <h3 class="text-3xl md:text-4xl font-bold mb-6">Menu Favorit</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl">
+              <div class="fav-menu-item fav-item-1 text-center cursor-pointer">
+                <div class="fav-avatar bg-gray-600">
+                  <img src="Screenshot 2025-11-20 at 07.51.46.png" alt="Gurame Sop Kuning" class="fav-menu-img">
+                </div>
+                 <p class="font-bold text-xl">Gurame Sop Kuning</p>
+               </div>
+               <div class="fav-menu-item fav-item-2 text-center cursor-pointer">
+                <div class="fav-avatar bg-gray-600">
+                  <img src="Screenshot 2025-11-20 at 07.44.17.png" alt="Ayam Penyet Jati" class="fav-menu-img">
+                </div>
+                 <p class="font-bold text-xl">Ayam Penyet Jati</p>
+               </div>
+               <div class="fav-menu-item fav-item-3 text-center cursor-pointer">
+                <div class="fav-avatar bg-gray-600">
+                  <img src="Screenshot 2025-11-20 at 07.43.05.png" alt="Gurame Rujak Kecombrang" class="fav-menu-img">
+                </div>
+                 <p class="font-bold text-xl">Gurame Rujak Kecombrang</p>
+               </div>
+             </div>
+           </div>
+   
+           <!-- Minuman Favorit -->
+           <div>
+             <h3 class="text-3xl md:text-4xl font-bold mb-6">Minuman Favorit</h3>
+             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl">
+               <div class="fav-menu-item fav-item-1 text-center cursor-pointer">
+                <div class="fav-avatar bg-blue-200">
+                  <img src="Screenshot 2025-11-20 at 07.54.29.png" alt="Es Cincau hitam" class="fav-menu-img">
+                </div>
+                 <p class="font-bold text-lg">Es Cincau hitam</p>
+               </div>
+               <div class="fav-menu-item fav-item-2 text-center cursor-pointer">
+                <div class="fav-avatar bg-orange-200">
+                  <img src="Screenshot 2025-11-20 at 07.55.11.png" alt="Es Kelapa Muda" class="fav-menu-img">
+                </div>
+                 <p class="font-bold text-lg">Es Kelapa Muda</p>
+               </div>
+               <div class="fav-menu-item fav-item-3 text-center cursor-pointer">
+                <div class="fav-avatar bg-gray-300">
+                  <img src="assets/images/drinks/3.png" alt="Es Mangga Serut" class="fav-menu-img">
+                </div>
+                 <p class="font-bold text-lg">Es Mangga Serut</p>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+    </div>
+  </section>
+
+  <!-- Special Offers Banner (Promo) -->
+  <section class="relative bg-gradient-to-r from-red-600 via-red-500 to-orange-500 py-16 px-6 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-6xl mx-auto text-center text-white">
+      <div class="promo-badge inline-block bg-yellow-400 text-red-600 px-6 py-2 rounded-full font-bold text-sm mb-4">
+        🔥 PROMO SPESIAL
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">Diskon 20% Setiap Hari Jumat!</h2>
+      <p class="text-xl md:text-2xl mb-8 font-light">Nikmati menu favorit dengan harga spesial. Berlaku untuk makan di tempat.</p>
+      <a href="menu.html" class="inline-block bg-white text-red-600 px-10 py-4 rounded-xl font-bold text-xl hover:bg-yellow-400 hover:text-red-700 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+        Pesan Sekarang
+      </a>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="bg-black text-white py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="stat-item text-center" style="animation-delay: 0.1s">
+          <div class="text-5xl md:text-6xl font-bold mb-3 text-yellow-400">15+</div>
+          <p class="text-lg md:text-xl text-gray-300">Tahun Berpengalaman</p>
+        </div>
+        <div class="stat-item text-center" style="animation-delay: 0.2s">
+          <div class="text-5xl md:text-6xl font-bold mb-3 text-yellow-400">50K+</div>
+          <p class="text-lg md:text-xl text-gray-300">Pelanggan Puas</p>
+        </div>
+        <div class="stat-item text-center" style="animation-delay: 0.3s">
+          <div class="text-5xl md:text-6xl font-bold mb-3 text-yellow-400">100+</div>
+          <p class="text-lg md:text-xl text-gray-300">Menu Pilihan</p>
+        </div>
+        <div class="stat-item text-center" style="animation-delay: 0.4s">
+          <div class="text-5xl md:text-6xl font-bold mb-3 text-yellow-400">4.9★</div>
+          <p class="text-lg md:text-xl text-gray-300">Rating Pelanggan</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="bg-gradient-to-b from-gray-50 to-white py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="scroll-animate text-center mb-16">
+        <div class="flex items-center justify-center gap-6 mb-6">
+          <div class="w-2 h-16 bg-black rounded-full"></div>
+          <h2 class="text-4xl md:text-5xl font-bold border-4 border-black px-8 py-4 rounded-2xl inline-block">Kata Mereka</h2>
+          <div class="w-2 h-16 bg-black rounded-full"></div>
+        </div>
+        <p class="text-xl text-gray-600">Testimoni dari pelanggan setia kami</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="scroll-animate testimonial-card bg-white p-8 rounded-2xl shadow-lg">
+          <div class="star-rating text-yellow-400 text-2xl mb-4">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="text-gray-700 mb-6 italic leading-relaxed">
+            "Sambalnya benar-benar pedas dan enak! Mengingatkan saya pada masakan ibu di kampung. Pelayanannya juga ramah dan cepat."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              B
+            </div>
+            <div>
+              <p class="font-bold text-lg">Budi Santoso</p>
+              <p class="text-gray-500 text-sm">Pelanggan Setia</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="scroll-animate testimonial-card bg-white p-8 rounded-2xl shadow-lg">
+          <div class="star-rating text-yellow-400 text-2xl mb-4">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="text-gray-700 mb-6 italic leading-relaxed">
+            "Tempat favorit untuk makan siang! Ayam Goreng Jati juara, porsinya besar dan harganya sangat terjangkau. Recommended!"
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              S
+            </div>
+            <div>
+              <p class="font-bold text-lg">Siti Nurhaliza</p>
+              <p class="text-gray-500 text-sm">Food Blogger</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="scroll-animate testimonial-card bg-white p-8 rounded-2xl shadow-lg">
+          <div class="star-rating text-yellow-400 text-2xl mb-4">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="text-gray-700 mb-6 italic leading-relaxed">
+            "Sudah langganan di sini sejak 2018. Kualitas makanan selalu konsisten dan tempatnya nyaman untuk makan bersama keluarga."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              A
+            </div>
+            <div>
+              <p class="font-bold text-lg">Ahmad Rizki</p>
+              <p class="text-gray-500 text-sm">Pengusaha</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation CTA Section -->
+  <section class="relative bg-cover bg-center py-32 px-6" style="background-image: url('1260601.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto text-center text-white">
+      <div class="scroll-animate">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6">Siap Merasakan Sensasi Pedas?</h2>
+        <p class="text-xl md:text-2xl mb-10 font-light">Reservasi sekarang dan dapatkan meja terbaik untuk pengalaman kuliner yang tak terlupakan</p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <a href="https://wa.me/6285213452474" target="_blank" class="flex items-center gap-3 bg-green-500 hover:bg-green-600 px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl">
+            <img src="assets/images/wa.png" alt="WhatsApp" class="w-8 h-8">
+            Reservasi via WhatsApp
+          </a>
+          
+          <a href="tel:+6285213452474" class="flex items-center gap-3 bg-white text-black hover:bg-yellow-400 px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl">
+            <span class="text-2xl">📞</span>
+            Hubungi Kami
+          </a>
+        </div>
+        
+        <p class="mt-8 text-lg opacity-90">
+          <span class="font-semibold">Jam Operasional:</span> Senin - Minggu, 09.00 - 23.00 WIB
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section (ditempatkan setelah promo sesuai permintaan) -->
+  <section class="bg-gradient-to-b from-gray-50 to-gray-100 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="scroll-animate flex items-center justify-center gap-6 mb-12" id="location">
+        <div class="w-2 h-16 bg-black rounded-full"></div>
+        <h2 class="text-4xl md:text-5xl font-bold border-4 border-black px-8 py-4 rounded-2xl inline-block">Lokasi Kami</h2>
+        <div class="w-2 h-16 bg-black rounded-full"></div>
+      </div>
+      
+      <div class="scroll-animate bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div class="h-96 md:h-[500px] relative">
+          <!-- Google Maps Embed - Ganti dengan koordinat restoran Anda -->
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.625417736969!2d106.68896851047236!3d-6.312839593650121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e5305c376549%3A0x713136277b32d8ca!2sRumah%20Makan%20Jati!5e0!3m2!1sid!2sid!4v1763606820454!5m2!1sid!2sid" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            class="w-full h-full"
+          ></iframe>
+        </div>
+        <div class="p-8 bg-white">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span class="text-3xl">📍</span> Alamat
+              </h3>
+              <p class="text-lg text-gray-700 leading-relaxed">
+                Jl. Ciater Raya No.2, Rw. Mekar Jaya, Kec. Serpong, Kota Tangerang Selatan, Banten 15310
+              
+              </p>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span class="text-3xl">🕐</span> Jam Operasional
+              </h3>
+              <p class="text-lg text-gray-700 leading-relaxed">
+                Senin - Jumat: 10.00 - 21.00<br/>
+                Sabtu - Minggu: 10.00 - 22.00<br/>
+                <span class="text-red-600 font-semibold">Buka Setiap Hari</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#181818] text-white py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="mb-2">© 2025 Rumah Makan Kayu Jati — Cita Rasa Autentik Indonesia</p>
+      <div class="flex justify-center gap-4 mt-4">
+        <a href="#" class="hover:text-[#C52235] transition-colors">Instagram</a>
+        <a href="#" class="hover:text-[#C52235] transition-colors">WhatsApp</a>
+        <a href="#" class="hover:text-[#C52235] transition-colors">Facebook</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- navbar Scroll -->
+  <script>
+    (function () {
+      const header = document.getElementById('navbar');
+      if (!header) return;
+      let lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      let ticking = false;
+      const threshold = 20;
+      
+      function update() {
+        const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (currentY > lastY && currentY > threshold) {
+          header.classList.add('-translate-y-full');
+        } else {
+          header.classList.remove('-translate-y-full');
+        }
+        lastY = currentY;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+  </script>
+  <!-- end navbar Scroll -->
+
+  <!-- Scroll Animation Script -->
+  <script>
+    // Intersection Observer untuk animasi scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    // Observe semua elemen dengan class scroll-animate
+    document.addEventListener('DOMContentLoaded', () => {
+      const animatedElements = document.querySelectorAll('.scroll-animate');
+      animatedElements.forEach(el => observer.observe(el));
+    });
+  </script>
+  <!-- end Scroll Animation -->
+
+</body>
+</html>
+// ...existing code...
