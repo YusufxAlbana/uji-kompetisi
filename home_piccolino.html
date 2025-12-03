@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rumah Makan — Kayu Jati</title>
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" href="assets/images/logo.png" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      font-family: 'Outfit', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .navbar-blur {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: none;
+    }
+
+    /* Hero Section Styles */
+    .hero-overlay {
+      background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+    }
+
+    /* Fade in animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .animate-fade-in-down {
+      animation: fadeInDown 1s ease-out forwards;
+    }
+
+    /* Scroll animations */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .scroll-animate.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Image hover effects */
+    .image-hover-zoom {
+      overflow: hidden;
+    }
+
+    .image-hover-zoom img {
+      transition: transform 0.6s ease;
+    }
+
+    .image-hover-zoom:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 28px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Decorative line */
+    .decorative-line {
+      width: 60px;
+      height: 2px;
+      background: #EAB308;
+      margin: 0 auto;
+    }
+
+    /* Button hover effect */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-primary:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- Navbar -->
+<header id="navbar" class="fixed top-0 left-0 right-0 navbar-blur z-50 transition-transform duration-300">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 lg:px-12 py-4 md:py-5">
+    <a href="#home" class="flex items-center gap-2 md:gap-3 shrink-0">
+      <img src="assets/images/logo.png" alt="Logo Kayu Jati" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+      <h1 class="text-lg md:text-xl font-bold text-white font-serif tracking-wider">
+        KAYU JATI
+      </h1>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden lg:flex items-center gap-8 text-base font-light">
+      <a href="#home" class="text-white hover:text-yellow-400 transition-colors">Home</a>
+      <a href="menu.html" class="text-white hover:text-yellow-400 transition-colors">Menu</a>
+      <a href="#about" class="text-white hover:text-yellow-400 transition-colors">Tentang</a>
+      <a href="#gallery" class="text-white hover:text-yellow-400 transition-colors">Galeri</a>
+      <a href="#contact" class="text-white hover:text-yellow-400 transition-colors">Kontak</a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="lg:hidden hamburger z-50" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full sm:w-80 h-screen bg-black/95 backdrop-blur-lg lg:hidden">
+    <nav class="flex flex-col gap-6 p-8 mt-20">
+      <a href="#home" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Home</a>
+      <a href="menu.html" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Menu</a>
+      <a href="#about" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Tentang</a>
+      <a href="#gallery" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Galeri</a>
+      <a href="#contact" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Kontak</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section 
+  id="home"
+  class="relative min-h-screen bg-cover bg-center flex items-center justify-center text-white"
+  style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1920&q=80');"
+>
+  <div class="absolute inset-0 hero-overlay"></div>
+
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-down tracking-wide">
+      KAYU JATI
+    </h2>
+    <div class="decorative-line mb-6"></div>
+    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light tracking-wide animate-fade-in-up" style="animation-delay: 0.3s;">
+      Restoran dengan cita rasa autentik Indonesia
+    </p>
+    <a href="#about" class="btn-primary inline-block px-10 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+      Reservasi Sekarang
+    </a>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 md:py-32 px-4" style="background: linear-gradient(to bottom, #2c2416, #1a1410);">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 scroll-animate">
+      <p class="text-yellow-400 text-sm tracking-widest mb-4">TENTANG KAMI</p>
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        KAYU JATI
+      </h2>
+      <div class="decorative-line mb-8"></div>
+    </div>
+
+    <div class="scroll-animate max-w-4xl mx-auto text-center">
+      <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+        Kami adalah restoran dengan cita rasa autentik Indonesia yang kaya akan rempah dan sambal pedas khas Nusantara. 
+        Setiap hidangan kami dibuat dengan penuh cinta dan dedikasi, menggunakan resep turun-temurun yang telah dipercaya selama puluhan tahun.
+      </p>
+      <p class="text-gray-300 text-base md:text-lg leading-relaxed">
+        Dengan bahan-bahan pilihan terbaik dan tim chef berpengalaman, kami berkomitmen menghadirkan pengalaman kuliner 
+        yang tak terlupakan untuk setiap tamu yang datang. Nikmati suasana hangat dan pelayanan terbaik di setiap kunjungan Anda.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Section -->
+<section id="gallery" class="py-20 md:py-32 px-4" style="background-color: #1a1410;">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      <!-- Gallery Item 1 -->
+      <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl">
+        <img src="assets/images/tempat/1.jpg" alt="Suasana Restoran" class="w-full h-80 md:h-96 object-cover">
+      </div>
+
+      <!-- Gallery Item 2 -->
+      <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl" style="animation-delay: 0.2s;">
+        <img src="assets/images/tempat/2.jpg" alt="Interior Restoran" class="w-full h-80 md:h-96 object-cover">
+      </div>
+
+      <!-- Gallery Item 3 -->
+      <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl" style="animation-delay: 0.4s;">
+        <img src="assets/images/favMenu/1.png" alt="Menu Spesial" class="w-full h-80 md:h-96 object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Made with Love Section -->
+<section class="bg-[#F5F1E8] py-0">
+  <div class="max-w-full mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch min-h-screen md:min-h-[700px]">
+      <!-- Image -->
+      <div class="scroll-animate image-hover-zoom overflow-hidden order-2 md:order-1 h-[500px] md:h-auto">
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Chef memasak" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Content -->
+      <div class="scroll-animate order-1 md:order-2 flex items-center px-6 md:px-12 lg:px-16 py-16 md:py-20">
+        <div class="max-w-xl">
+          <p class="text-gray-600 text-sm tracking-widest mb-4">FILOSOFI KAMI</p>
+          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+            DIBUAT DENGAN CINTA
+          </h2>
+          <div class="decorative-line mb-8" style="margin-left: 0; background: #8B7355;"></div>
+
+          <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+            Chef-owner Leonardo Tommazzini dengan keahlian yang telah diasah sejak kecil, menciptakan menu istimewa 
+            di rumah makan Kayu Jati untuk para penikmat kuliner Indonesia.
+          </p>
+          <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+            Ia menyusun menu dari 130 hidangan pilihan. Leonardo percaya bahwa memasak adalah seni tinggi dan ilmu pengetahuan 
+            yang membutuhkan dedikasi penuh untuk menghasilkan cita rasa sempurna.
+          </p>
+
+          <div class="flex items-center gap-4 mt-8">
+            <svg class="w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 md:py-32 px-4" style="background-color: #2c2416;">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="scroll-animate">
+      <p class="text-yellow-400 text-sm tracking-widest mb-4">HUBUNGI KAMI</p>
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+        KONTAK
+      </h2>
+      <div class="decorative-line mb-12"></div>
+
+      <p class="text-gray-300 text-lg md:text-xl mb-12">
+        Telepon: +62 812-3456-7890
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.5); border: 1px solid rgba(139, 115, 85, 0.3);">
+          <h3 class="text-yellow-400 font-semibold mb-4 text-lg">ALAMAT</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Jl. Contoh No. 123<br/>
+            Jakarta Pusat<br/>
+            DKI Jakarta 10110<br/>
+            Indonesia
+          </p>
+        </div>
+
+        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.5); border: 1px solid rgba(139, 115, 85, 0.3);">
+          <h3 class="text-yellow-400 font-semibold mb-4 text-lg">JAM OPERASIONAL</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Senin - Jumat: 10.00 - 22.00<br/>
+            Sabtu - Minggu: 09.00 - 23.00<br/>
+            <span class="text-yellow-400">Buka Setiap Hari</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <a href="https://wa.me/6281234567890" target="_blank" class="btn-primary inline-flex items-center gap-3 px-10 py-4 border-2 border-yellow-400 text-yellow-400 font-light text-lg tracking-wider hover:bg-yellow-400 hover:text-black transition-all duration-300">
+          <img src="assets/images/wa.png" alt="WhatsApp" class="w-6 h-6">
+          Reservasi Sekarang
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-white py-8" style="background-color: #0d0a08;"></footer>
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <img src="assets/images/logo.png" alt="Logo" class="w-8 h-8">
+      <p class="font-serif text-xl tracking-wider">KAYU JATI</p>
+    </div>
+    <p class="text-gray-400 text-sm mb-4">© 2025 Rumah Makan Kayu Jati — Cita Rasa Autentik Indonesia</p>
+    <div class="flex justify-center gap-6">
+      <a href="#" class="hover:text-yellow-400 transition-colors">
+        <img src="assets/images/ig.png" alt="Instagram" class="w-6 h-6 opacity-70 hover:opacity-100">
+      </a>
+      <a href="#" class="hover:text-yellow-400 transition-colors">
+        <img src="assets/images/wa.png" alt="WhatsApp" class="w-6 h-6 opacity-70 hover:opacity-100">
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // Navbar scroll hide/show
+  (function () {
+    const header = document.getElementById('navbar');
+    if (!header) return;
+    let lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    let ticking = false;
+    const threshold = 20;
+
+    function update() {
+      const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      if (currentY > lastY && currentY > threshold) {
+        header.classList.add('-translate-y-full');
+      } else {
+        header.classList.remove('-translate-y-full');
+      }
+      lastY = currentY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+
+  // Mobile Menu
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenuBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+  });
+
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuBtn.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('.scroll-animate');
+    animatedElements.forEach(el => observer.observe(el));
+  });
+</script>
+
+</body>
+</html>
