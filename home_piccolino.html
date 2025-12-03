@@ -15,11 +15,11 @@
       font-family: 'Outfit', sans-serif;
       scroll-behavior: smooth;
     }
-
+    
     .font-serif {
       font-family: 'Playfair Display', serif;
     }
-
+    
     .navbar-blur {
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(12px);
@@ -231,7 +231,7 @@
 </section>
 
 <!-- About Section -->
-<section id="about" class="py-20 md:py-32 px-4" style="background: linear-gradient(to bottom, #2c2416, #1a1410);">
+<section id="about" class="py-20 md:py-32 px-4" style="background: linear-gradient(to bottom, #8B4513, #A0522D);">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16 scroll-animate">
       <p class="text-yellow-400 text-sm tracking-widest mb-4">TENTANG KAMI</p>
@@ -242,11 +242,11 @@
     </div>
 
     <div class="scroll-animate max-w-4xl mx-auto text-center">
-      <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+      <p class="text-white text-base md:text-lg leading-relaxed mb-6">
         Kami adalah restoran dengan cita rasa autentik Indonesia yang kaya akan rempah dan sambal pedas khas Nusantara. 
         Setiap hidangan kami dibuat dengan penuh cinta dan dedikasi, menggunakan resep turun-temurun yang telah dipercaya selama puluhan tahun.
       </p>
-      <p class="text-gray-300 text-base md:text-lg leading-relaxed">
+      <p class="text-white text-base md:text-lg leading-relaxed">
         Dengan bahan-bahan pilihan terbaik dan tim chef berpengalaman, kami berkomitmen menghadirkan pengalaman kuliner 
         yang tak terlupakan untuk setiap tamu yang datang. Nikmati suasana hangat dan pelayanan terbaik di setiap kunjungan Anda.
       </p>
@@ -255,23 +255,55 @@
 </section>
 
 <!-- Gallery Section -->
-<section id="gallery" class="py-20 md:py-32 px-4" style="background-color: #1a1410;">
+<section id="gallery" class="py-20 md:py-32 px-4" style="background-color: #8B4513;">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
       <!-- Gallery Item 1 -->
       <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl">
         <img src="assets/images/tempat/1.jpg" alt="Suasana Restoran" class="w-full h-80 md:h-96 object-cover">
       </div>
-
+      
       <!-- Gallery Item 2 -->
       <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl" style="animation-delay: 0.2s;">
         <img src="assets/images/tempat/2.jpg" alt="Interior Restoran" class="w-full h-80 md:h-96 object-cover">
       </div>
-
+      
       <!-- Gallery Item 3 -->
       <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl" style="animation-delay: 0.4s;">
         <img src="assets/images/favMenu/1.png" alt="Menu Spesial" class="w-full h-80 md:h-96 object-cover">
       </div>
+    </div>
+    
+    <!-- Menu Button -->
+    <div class="scroll-animate text-center mt-12" style="animation-delay: 0.6s;">
+      <div class="relative inline-block">
+        <!-- Glow effect -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 animate-pulse"></div>
+        
+        <!-- Button -->
+        <a href="menu.html" class="group relative inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-sm text-gray-900 font-bold text-lg md:text-xl rounded-3xl shadow-2xl hover:shadow-yellow-500/50 transform hover:scale-110 transition-all duration-300 border-2 border-white/50">
+          <!-- Icon -->
+          <span class="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full group-hover:rotate-180 transition-transform duration-500">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </span>
+          
+          <!-- Text -->
+          <span class="relative">
+            <span class="block group-hover:scale-110 transition-transform duration-300">Lihat Menu Lengkap</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 group-hover:w-full transition-all duration-500"></span>
+          </span>
+          
+          <!-- Arrow -->
+          <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+      
+      <!-- Subtitle -->
+      <p class="text-white/80 text-sm mt-4 font-light">Jelajahi 100+ menu pilihan kami</p>
     </div>
   </div>
 </section>
@@ -284,7 +316,7 @@
       <div class="scroll-animate image-hover-zoom overflow-hidden order-2 md:order-1 h-[500px] md:h-auto">
         <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Chef memasak" class="w-full h-full object-cover">
       </div>
-
+      
       <!-- Content -->
       <div class="scroll-animate order-1 md:order-2 flex items-center px-6 md:px-12 lg:px-16 py-16 md:py-20">
         <div class="max-w-xl">
@@ -293,7 +325,7 @@
             DIBUAT DENGAN CINTA
           </h2>
           <div class="decorative-line mb-8" style="margin-left: 0; background: #8B7355;"></div>
-
+          
           <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
             Chef-owner Leonardo Tommazzini dengan keahlian yang telah diasah sejak kecil, menciptakan menu istimewa 
             di rumah makan Kayu Jati untuk para penikmat kuliner Indonesia.
@@ -302,7 +334,7 @@
             Ia menyusun menu dari 130 hidangan pilihan. Leonardo percaya bahwa memasak adalah seni tinggi dan ilmu pengetahuan 
             yang membutuhkan dedikasi penuh untuk menghasilkan cita rasa sempurna.
           </p>
-
+          
           <div class="flex items-center gap-4 mt-8">
             <svg class="w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -315,7 +347,7 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact" class="py-20 md:py-32 px-4" style="background-color: #2c2416;">
+<section id="contact" class="py-20 md:py-32 px-4" style="background-color: #A0522D;">
   <div class="max-w-4xl mx-auto text-center">
     <div class="scroll-animate">
       <p class="text-yellow-400 text-sm tracking-widest mb-4">HUBUNGI KAMI</p>
@@ -323,32 +355,32 @@
         KONTAK
       </h2>
       <div class="decorative-line mb-12"></div>
-
-      <p class="text-gray-300 text-lg md:text-xl mb-12">
+      
+      <p class="text-white text-lg md:text-xl mb-12">
         Telepon: +62 812-3456-7890
       </p>
-
+      
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.5); border: 1px solid rgba(139, 115, 85, 0.3);">
+        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.2); border: 2px solid rgba(255, 255, 255, 0.3);">
           <h3 class="text-yellow-400 font-semibold mb-4 text-lg">ALAMAT</h3>
-          <p class="text-gray-300 leading-relaxed">
+          <p class="text-white leading-relaxed">
             Jl. Contoh No. 123<br/>
             Jakarta Pusat<br/>
             DKI Jakarta 10110<br/>
             Indonesia
           </p>
         </div>
-
-        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.5); border: 1px solid rgba(139, 115, 85, 0.3);">
+        
+        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.2); border: 2px solid rgba(255, 255, 255, 0.3);">
           <h3 class="text-yellow-400 font-semibold mb-4 text-lg">JAM OPERASIONAL</h3>
-          <p class="text-gray-300 leading-relaxed">
+          <p class="text-white leading-relaxed">
             Senin - Jumat: 10.00 - 22.00<br/>
             Sabtu - Minggu: 09.00 - 23.00<br/>
             <span class="text-yellow-400">Buka Setiap Hari</span>
           </p>
         </div>
       </div>
-
+      
       <div class="mt-12">
         <a href="https://wa.me/6281234567890" target="_blank" class="btn-primary inline-flex items-center gap-3 px-10 py-4 border-2 border-yellow-400 text-yellow-400 font-light text-lg tracking-wider hover:bg-yellow-400 hover:text-black transition-all duration-300">
           <img src="assets/images/wa.png" alt="WhatsApp" class="w-6 h-6">
@@ -360,7 +392,7 @@
 </section>
 
 <!-- Footer -->
-<footer class="text-white py-8" style="background-color: #0d0a08;"></footer>
+<footer class="text-white py-8" style="background-color: #6B3410;">
   <div class="max-w-7xl mx-auto px-4 text-center">
     <div class="flex items-center justify-center gap-3 mb-4">
       <img src="assets/images/logo.png" alt="Logo" class="w-8 h-8">
@@ -387,7 +419,7 @@
     let lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
     let ticking = false;
     const threshold = 20;
-
+    
     function update() {
       const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
       if (currentY > lastY && currentY > threshold) {
