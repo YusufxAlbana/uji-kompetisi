@@ -257,7 +257,7 @@
 <!-- Gallery Section -->
 <section id="gallery" class="py-20 md:py-32 px-4" style="background-color: #8B4513;">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
       <!-- Gallery Item 1 -->
       <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl">
         <img src="assets/images/tempat/1.jpg" alt="Suasana Restoran" class="w-full h-80 md:h-96 object-cover">
@@ -272,6 +272,38 @@
       <div class="scroll-animate image-hover-zoom rounded-lg overflow-hidden shadow-2xl" style="animation-delay: 0.4s;">
         <img src="assets/images/favMenu/1.png" alt="Menu Spesial" class="w-full h-80 md:h-96 object-cover">
       </div>
+    </div>
+    
+    <!-- Menu Button -->
+    <div class="scroll-animate text-center mt-12" style="animation-delay: 0.6s;">
+      <div class="relative inline-block">
+        <!-- Glow effect -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 animate-pulse"></div>
+        
+        <!-- Button -->
+        <a href="menu.html" class="group relative inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-sm text-gray-900 font-bold text-lg md:text-xl rounded-3xl shadow-2xl hover:shadow-yellow-500/50 transform hover:scale-110 transition-all duration-300 border-2 border-white/50">
+          <!-- Icon -->
+          <span class="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full group-hover:rotate-180 transition-transform duration-500">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </span>
+          
+          <!-- Text -->
+          <span class="relative">
+            <span class="block group-hover:scale-110 transition-transform duration-300">Lihat Menu Lengkap</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 group-hover:w-full transition-all duration-500"></span>
+          </span>
+          
+          <!-- Arrow -->
+          <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+      
+      <!-- Subtitle -->
+      <p class="text-white/80 text-sm mt-4 font-light">Jelajahi 100+ menu pilihan kami</p>
     </div>
   </div>
 </section>
