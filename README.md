@@ -1,59 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Rumah Makan Jati - Restaurant Landing Page
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, responsive landing page for Rumah Makan Jati, an authentic Indonesian restaurant located in BSD, Tangerang Selatan. This project is built using Laravel as the framework foundation, but primarily focuses on frontend presentation.
 
-## About Laravel
+## About This Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This is a **frontend-focused** restaurant website showcasing Rumah Makan Jati's menu, ambiance, and services. While built on Laravel's framework structure, the main implementation is a single-page application with rich visual content and interactive elements.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Based on the `welcome.blade.php` implementation, this landing page includes:
 
-## Learning Laravel
+### 🎨 Visual Components
+- **Hero Section** - Full-screen hero with restaurant branding and call-to-action
+- **About Section** - Restaurant history and mission statement
+- **Menu Showcase** - Grid display of favorite dishes with hover effects
+- **Brewing Station** - Dedicated section for beverage offerings
+- **Contact Section** - Business hours, location, and contact information
+- **Feedback Form** - Integrated Google Sheets form for customer feedback
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 🍽️ Menu Highlights
+The page showcases signature dishes including:
+- Gurame Sup Kuning
+- Ayam Penyet Jati
+- Gurame Rujak Kecombrang
+- Es Cincau Hitam
+- Es Kelapa Muda
+- Es Mangga Serut
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 📱 Interactive Features
+- Responsive navigation with mobile hamburger menu
+- Smooth scroll animations and fade-in effects
+- Image hover zoom effects
+- Auto-hide navbar on scroll
+- WhatsApp integration for reservations
+- Google Drive menu links
+- Feedback form with Google Apps Script integration
 
-## Laravel Sponsors
+### 🎯 External Integrations
+- **WhatsApp**: Direct reservation link (+62 852-1345-2474)
+- **Google Drive**: Full menu PDF access
+- **Google Sheets**: Feedback form submission
+- **Social Media**: Instagram, TikTok, and WhatsApp links
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🎨 Design & Styling
+- Custom color scheme (brown/sienna tones: #683017, #A0522D)
+- Tailwind CSS for responsive design
+- Custom fonts: Playfair Display (serif) and Outfit (sans-serif)
+- Smooth animations and transitions
+- Backdrop blur effects on navigation
 
-### Premium Partners
+## Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **Framework**: Laravel 11.x
+- **Frontend**: Blade templating engine
+- **CSS**: Tailwind CSS (CDN)
+- **JavaScript**: Vanilla JS for interactions
+- **Form Backend**: Google Apps Script
 
-## Contributing
+## Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd rumah-makan-jati
+```
 
-## Code of Conduct
+2. Install dependencies
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Configure environment
+```bash
+copy .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+4. Serve the application
+```bash
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Visit `http://localhost:8000` in your browser
+
+## Project Structure
+
+```
+├── resources/views/
+│   └── welcome.blade.php    # Main landing page
+├── public/assets/
+│   └── images/              # Restaurant images and logos
+├── routes/
+│   └── web.php              # Route definitions
+└── config/                  # Laravel configuration files
+```
+
+## Contact Information
+
+**Rumah Makan Jati**
+- Address: Jl. Ciater Raya No.2, Rw. Mekar Jaya, Kec. Serpong, Kota Tangerang Selatan, Banten 15310
+- Phone: +62 852-1345-2474
+- Hours: 10:00 AM - 9:00 PM (Mon-Fri), 10:00 AM - 10:00 PM (Sat-Sun)
+
+## Social Media
+
+- Instagram: [@rumahmakanjati.bsd](https://www.instagram.com/rumahmakanjati.bsd/)
+- TikTok: [@rmjatibsd](https://www.tiktok.com/@rmjatibsd)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is proprietary software for Rumah Makan Jati. All rights reserved.
