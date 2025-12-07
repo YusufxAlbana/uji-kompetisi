@@ -1,5 +1,3 @@
-import './bootstrap';
-
 /* ===================================
    RUMAH MAKAN JATI - Main JavaScript
    =================================== */
@@ -9,11 +7,9 @@ import './bootstrap';
 // ============================================
 window.addEventListener('load', () => {
   const loadingScreen = document.getElementById('loadingScreen');
-  if (loadingScreen) {
-    setTimeout(() => {
-      loadingScreen.classList.add('hidden');
-    }, 500);
-  }
+  setTimeout(() => {
+    loadingScreen.classList.add('hidden');
+  }, 500);
 });
 
 // ============================================
@@ -21,12 +17,10 @@ window.addEventListener('load', () => {
 // ============================================
 window.addEventListener('scroll', () => {
   const scrollProgress = document.getElementById('scrollProgress');
-  if (scrollProgress) {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercentage = (scrollTop / scrollHeight) * 100;
-    scrollProgress.style.width = scrollPercentage + '%';
-  }
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrollPercentage = (scrollTop / scrollHeight) * 100;
+  scrollProgress.style.width = scrollPercentage + '%';
 }, { passive: true });
 
 // ============================================
@@ -34,22 +28,20 @@ window.addEventListener('scroll', () => {
 // ============================================
 const backToTop = document.getElementById('backToTop');
 
-if (backToTop) {
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      backToTop.classList.add('show');
-    } else {
-      backToTop.classList.remove('show');
-    }
-  }, { passive: true });
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    backToTop.classList.add('show');
+  } else {
+    backToTop.classList.remove('show');
+  }
+}, { passive: true });
 
-  backToTop.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+backToTop.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
   });
-}
+});
 
 // ============================================
 // 4. PARALLAX EFFECT ON HERO SECTION
@@ -68,21 +60,19 @@ window.addEventListener('scroll', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const lazyImages = document.querySelectorAll('img[data-src]');
   
-  if (lazyImages.length > 0) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.add('loaded');
-          img.removeAttribute('data-src');
-          observer.unobserve(img);
-        }
-      });
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.classList.add('loaded');
+        img.removeAttribute('data-src');
+        observer.unobserve(img);
+      }
     });
+  });
 
-    lazyImages.forEach(img => imageObserver.observe(img));
-  }
+  lazyImages.forEach(img => imageObserver.observe(img));
 });
 
 // ============================================
@@ -122,45 +112,43 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
 
-if (mobileMenuBtn && mobileMenu) {
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenuBtn.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-  });
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenuBtn.classList.toggle('active');
+  mobileMenu.classList.toggle('active');
+  document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+});
 
-  mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      // Close menu
-      mobileMenuBtn.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-      
-      // Smooth scroll to section
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          const offsetTop = target.offsetTop - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-        }
+mobileMenuLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Close menu
+    mobileMenuBtn.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Smooth scroll to section
+    const href = link.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        const offsetTop = target.offsetTop - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
       }
-    });
-  });
-
-  // Close mobile menu when clicking outside
-  mobileMenu.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) {
-      mobileMenuBtn.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
     }
   });
-}
+});
+
+// Close mobile menu when clicking outside
+mobileMenu.addEventListener('click', (e) => {
+  if (e.target === mobileMenu) {
+    mobileMenuBtn.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
 
 // ============================================
 // 8. SMOOTH SCROLL FOR ALL ANCHOR LINKS
@@ -225,96 +213,110 @@ const feedbackForm = document.getElementById('feedbackForm');
 const formStatus = document.getElementById('formStatus');
 const scriptURL = 'https://script.google.com/macros/s/AKfycbww61MGGyFOaOobqZ-Tp27K_0eGUY43x10IN82pLogMUgDjd6B8PkhocOtRaIwhkMI1/exec';
 
-if (feedbackForm && formStatus) {
-  // Add input validation feedback
-  const formInputs = feedbackForm.querySelectorAll('input, textarea');
-  formInputs.forEach(input => {
-    input.addEventListener('focus', function() {
-      this.style.borderColor = '#EAB308';
-      this.style.boxShadow = '0 0 0 3px rgba(234, 179, 8, 0.1)';
-    });
-    
-    input.addEventListener('blur', function() {
-      if (this.value.trim() === '') {
-        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-        this.style.boxShadow = 'none';
-      }
-    });
-
-    input.addEventListener('input', function() {
-      if (this.validity.valid) {
-        this.style.borderColor = '#10B981';
-      } else if (this.value.length > 0) {
-        this.style.borderColor = '#EF4444';
-      }
-    });
+// Add input validation feedback
+const formInputs = feedbackForm.querySelectorAll('input, textarea');
+formInputs.forEach(input => {
+  input.addEventListener('focus', function() {
+    this.style.borderColor = '#EAB308';
+    this.style.boxShadow = '0 0 0 3px rgba(234, 179, 8, 0.1)';
+  });
+  
+  input.addEventListener('blur', function() {
+    if (this.value.trim() === '') {
+      this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+      this.style.boxShadow = 'none';
+    }
   });
 
-  feedbackForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  input.addEventListener('input', function() {
+    if (this.validity.valid) {
+      this.style.borderColor = '#10B981';
+    } else if (this.value.length > 0) {
+      this.style.borderColor = '#EF4444';
+    }
+  });
+});
+
+feedbackForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  // Disable submit button
+  const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Mengirim...';
+  submitBtn.style.opacity = '0.7';
+  
+  // Get form data
+  const formData = new FormData(feedbackForm);
+  
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      body: formData
+    });
     
-    // Disable submit button
-    const submitBtn = feedbackForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Mengirim...';
-    submitBtn.style.opacity = '0.7';
+    const result = await response.text();
     
-    // Get form data
-    const formData = new FormData(feedbackForm);
-    
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: formData
-      });
-      
-      const result = await response.text();
-      
-      if (result.includes('Success')) {
-        // Success message with animation
-        formStatus.textContent = '✓ Feedback berhasil dikirim! Terima kasih.';
-        formStatus.className = 'text-center text-sm mt-4 text-green-400 font-semibold animate-fade-in-up';
-        formStatus.classList.remove('hidden');
-        
-        // Reset form
-        feedbackForm.reset();
-        formInputs.forEach(input => {
-          input.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-          input.style.boxShadow = 'none';
-        });
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          formStatus.classList.add('hidden');
-        }, 5000);
-      } else {
-        throw new Error('Failed to send');
-      }
-    } catch (error) {
-      // Error message with animation
-      formStatus.textContent = '✗ Gagal mengirim feedback. Silakan coba lagi.';
-      formStatus.className = 'text-center text-sm mt-4 text-red-400 font-semibold animate-fade-in-up';
+    if (result.includes('Success')) {
+      // Success message with animation
+      formStatus.textContent = '✓ Feedback berhasil dikirim! Terima kasih.';
+      formStatus.className = 'text-center text-sm mt-4 text-green-400 font-semibold animate-fade-in-up';
       formStatus.classList.remove('hidden');
       
+      // Reset form
+      feedbackForm.reset();
+      formInputs.forEach(input => {
+        input.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        input.style.boxShadow = 'none';
+      });
+      
+      // Hide success message after 5 seconds
       setTimeout(() => {
         formStatus.classList.add('hidden');
       }, 5000);
-    } finally {
-      // Re-enable submit button
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-      submitBtn.style.opacity = '1';
+    } else {
+      throw new Error('Failed to send');
     }
-  });
+  } catch (error) {
+    // Error message with animation
+    formStatus.textContent = '✗ Gagal mengirim feedback. Silakan coba lagi.';
+    formStatus.className = 'text-center text-sm mt-4 text-red-400 font-semibold animate-fade-in-up';
+    formStatus.classList.remove('hidden');
+    
+    setTimeout(() => {
+      formStatus.classList.add('hidden');
+    }, 5000);
+  } finally {
+    // Re-enable submit button
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+    submitBtn.style.opacity = '1';
+  }
+});
+
+// ============================================
+// 12. PERFORMANCE OPTIMIZATION
+// ============================================
+// Debounce function for scroll events
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 }
 
 // ============================================
-// 12. KEYBOARD ACCESSIBILITY
+// 13. KEYBOARD ACCESSIBILITY
 // ============================================
 document.addEventListener('keydown', (e) => {
   // ESC key closes mobile menu
-  if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
     mobileMenuBtn.classList.remove('active');
     mobileMenu.classList.remove('active');
     document.body.style.overflow = '';
@@ -322,7 +324,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ============================================
-// 13. CONSOLE MESSAGE
+// 14. CONSOLE MESSAGE
 // ============================================
 console.log('%c🍽️ RUMAH MAKAN JATI', 'color: #EAB308; font-size: 20px; font-weight: bold;');
 console.log('%cWebsite loaded successfully!', 'color: #10B981; font-size: 14px;');
