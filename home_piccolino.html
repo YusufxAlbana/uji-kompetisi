@@ -459,6 +459,65 @@
         </div>
       </div>
       
+      <!-- Feedback Form -->
+      <div class="mt-16 max-w-2xl mx-auto">
+        <div class="p-8 rounded-lg" style="background-color: rgba(0,0,0,0.2); border: 2px solid rgba(255, 255, 255, 0.3);">
+          <h3 class="text-yellow-400 font-semibold mb-6 text-xl text-center">KIRIM FEEDBACK</h3>
+          
+          <form id="feedbackForm" class="space-y-4">
+            <!-- Email Input -->
+            <div class="text-left">
+              <label for="email" class="block text-white text-sm mb-2">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                placeholder="email@example.com"
+                class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/50 transition-all"
+              >
+            </div>
+
+            <!-- Subject Input -->
+            <div class="text-left">
+              <label for="subject" class="block text-white text-sm mb-2">Subjek</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                required 
+                placeholder="Masukkan subjek"
+                class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/50 transition-all"
+              >
+            </div>
+
+            <!-- Message Textarea -->
+            <div class="text-left">
+              <label for="message" class="block text-white text-sm mb-2">Pesan</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                required 
+                rows="5"
+                placeholder="Tulis pesan Anda di sini..."
+                class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/50 transition-all resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="w-full px-10 py-4 bg-yellow-400 text-gray-900 font-bold text-lg rounded-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105"
+            >
+              Kirim Feedback
+            </button>
+
+            <!-- Status Message -->
+            <div id="formStatus" class="text-center text-sm mt-4 hidden"></div>
+          </form>
+        </div>
+      </div>
+
       <div class="mt-12">
         <a href="https://wa.me/6285213452474" target="_blank" class="btn-primary inline-flex items-center gap-3 px-10 py-4 border-2 border-yellow-400 text-yellow-400 font-light text-lg tracking-wider hover:bg-yellow-400 hover:text-black transition-all duration-300 rounded-tl-3xl">
           <img src="assets/images/wa.png" alt="WhatsApp" class="w-6 h-6">
@@ -556,6 +615,63 @@
   document.addEventListener('DOMContentLoaded', () => {
     const animatedElements = document.querySelectorAll('.scroll-animate');
     animatedElements.forEach(el => observer.observe(el));
+  });
+
+  // Feedback Form Handler
+  const feedbackForm = document.getElementById('feedbackForm');
+  const formStatus = document.getElementById('formStatus');
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbww61MGGyFOaOobqZ-Tp27K_0eGUY43x10IN82pLogMUgDjd6B8PkhocOtRaIwhkMI1/exec';
+
+  feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Disable submit button
+    const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Mengirim...';
+    
+    // Get form data
+    const formData = new FormData(feedbackForm);
+    
+    try {
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.text();
+      
+      if (result.includes('Success')) {
+        // Success message
+        formStatus.textContent = '✓ Feedback berhasil dikirim! Terima kasih.';
+        formStatus.className = 'text-center text-sm mt-4 text-green-400 font-semibold';
+        formStatus.classList.remove('hidden');
+        
+        // Reset form
+        feedbackForm.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          formStatus.classList.add('hidden');
+        }, 5000);
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch (error) {
+      // Error message
+      formStatus.textContent = '✗ Gagal mengirim feedback. Silakan coba lagi.';
+      formStatus.className = 'text-center text-sm mt-4 text-red-400 font-semibold';
+      formStatus.classList.remove('hidden');
+      
+      setTimeout(() => {
+        formStatus.classList.add('hidden');
+      }, 5000);
+    } finally {
+      // Re-enable submit button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
 </script>
 
