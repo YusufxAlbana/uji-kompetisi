@@ -189,11 +189,49 @@
     /* Mobile Menu */
     .mobile-menu {
       transform: translateX(100%);
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .mobile-menu.active {
       transform: translateX(0);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-menu nav {
+      animation: fadeInRight 0.5s ease-out;
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .mobile-menu-link {
+      display: block;
+      position: relative;
+    }
+
+    .mobile-menu-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #EAB308;
+      transition: width 0.3s ease;
+    }
+
+    .mobile-menu-link:hover::after {
+      width: 100%;
     }
 
     .hamburger {
@@ -201,6 +239,13 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .hamburger:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .hamburger span {
@@ -209,19 +254,22 @@
       height: 3px;
       background: white;
       border-radius: 3px;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .hamburger.active span:nth-child(1) {
       transform: rotate(45deg) translate(8px, 8px);
+      background: #EAB308;
     }
 
     .hamburger.active span:nth-child(2) {
       opacity: 0;
+      transform: translateX(-20px);
     }
 
     .hamburger.active span:nth-child(3) {
       transform: rotate(-45deg) translate(7px, -7px);
+      background: #EAB308;
     }
 
     /* Decorative line */
@@ -394,6 +442,21 @@
       animation: pulse-glow 2s ease-in-out infinite;
     }
 
+    /* Mobile Menu Overlay */
+    #mobileMenuOverlay {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    #mobileMenuOverlay.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #mobileMenuOverlay.invisible {
+      visibility: hidden;
+      opacity: 0;
+    }
+
     /* Mobile Optimizations */
     @media (max-width: 768px) {
       .back-to-top {
@@ -418,6 +481,22 @@
 
       .contact-card {
         border-radius: 1rem 0 1rem 0;
+      }
+
+      .mobile-menu {
+        width: 100%;
+      }
+
+      .mobile-menu nav {
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+      }
+    }
+
+    /* Tablet Optimizations */
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .mobile-menu {
+        width: 400px;
       }
     }
 
@@ -455,6 +534,9 @@
   </svg>
 </div>
 
+<!-- Mobile Menu Overlay -->
+<div id="mobileMenuOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 opacity-0 invisible transition-all duration-300"></div>
+
 <!-- Navbar -->
 <header id="navbar" class="fixed top-0 left-0 right-0 navbar-blur z-50 transition-transform duration-300">
   <div class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 lg:px-12 py-4 md:py-5">
@@ -483,13 +565,56 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full sm:w-80 h-screen bg-black/95 backdrop-blur-lg lg:hidden">
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full sm:w-80 h-screen bg-black/95 backdrop-blur-lg lg:hidden z-40">
     <nav class="flex flex-col gap-6 p-8 mt-20">
-      <a href="#home" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Home</a>
-      <a href="menu.html" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Menu</a>
-      <a href="#about" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Tentang</a>
-      <a href="#gallery" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Galeri</a>
-      <a href="#contact" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">Kontak</a>
+      <a href="#home" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Home
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1p3e6N0my2smstN89swwJdJja6VPgl1vj/view" target="_blank" rel="noopener noreferrer" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          Menu
+        </div>
+      </a>
+      <a href="#about" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Tentang
+        </div>
+      </a>
+      <a href="#gallery" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          Galeri
+        </div>
+      </a>
+      <a href="#contact" class="mobile-menu-link text-white text-2xl font-light hover:text-yellow-400 transition-colors border-b border-white/20 pb-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+          Kontak
+        </div>
+      </a>
+      
+      <!-- WhatsApp Button in Mobile Menu -->
+      <a href="https://wa.me/6285213452474" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-full hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Chat WhatsApp
+      </a>
     </nav>
   </div>
 </header>
@@ -1014,42 +1139,82 @@
   // 6. Mobile Menu
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
   const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
 
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenuBtn.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-  });
-
-  mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      mobileMenuBtn.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
+  if (mobileMenuBtn && mobileMenu && mobileMenuOverlay) {
+    // Toggle menu
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = mobileMenu.classList.contains('active');
       
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          const offsetTop = target.offsetTop - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-        }
+      mobileMenuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = !isActive ? 'hidden' : '';
+      
+      // Toggle overlay
+      if (!isActive) {
+        mobileMenuOverlay.classList.remove('invisible', 'opacity-0');
+        mobileMenuOverlay.classList.add('visible', 'opacity-100');
+      } else {
+        mobileMenuOverlay.classList.add('invisible', 'opacity-0');
+        mobileMenuOverlay.classList.remove('visible', 'opacity-100');
       }
     });
-  });
 
-  mobileMenu.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) {
+    // Function to close menu
+    const closeMenu = () => {
       mobileMenuBtn.classList.remove('active');
       mobileMenu.classList.remove('active');
+      mobileMenuOverlay.classList.add('invisible', 'opacity-0');
+      mobileMenuOverlay.classList.remove('visible', 'opacity-100');
       document.body.style.overflow = '';
-    }
-  });
+    };
+
+    // Handle menu links
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        
+        // Handle internal links
+        if (href && href.startsWith('#') && href !== '#') {
+          e.preventDefault();
+          closeMenu();
+          
+          setTimeout(() => {
+            const target = document.querySelector(href);
+            if (target) {
+              const offsetTop = target.offsetTop - 80;
+              window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+              });
+            }
+          }, 300);
+        } else {
+          // For external links, just close menu
+          closeMenu();
+        }
+      });
+    });
+
+    // Close menu when clicking overlay
+    mobileMenuOverlay.addEventListener('click', closeMenu);
+
+    // Close menu when clicking outside
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        closeMenu();
+      }
+    });
+
+    // Close menu on window resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && mobileMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+  }
 
   // 7. Smooth scroll for all anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1181,10 +1346,18 @@
 
   // 11. Keyboard Accessibility
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-      mobileMenuBtn.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
+    if (e.key === 'Escape') {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      
+      if (mobileMenu && mobileMenu.classList.contains('active')) {
+        mobileMenuBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.add('invisible', 'opacity-0');
+        mobileMenuOverlay.classList.remove('visible', 'opacity-100');
+        document.body.style.overflow = '';
+      }
     }
   });
 
