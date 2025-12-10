@@ -186,6 +186,21 @@
       transform: scale(1.0);
     }
 
+    /* Brewing Station Image Hover Effect */
+    .brewing-image-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .brewing-image {
+      transition: transform 0.7s ease-out;
+      transform-origin: center center;
+    }
+
+    .brewing-image-container:hover .brewing-image {
+      transform: scale(1.15);
+    }
+
     /* Mobile Menu */
     .mobile-menu {
       transform: translateX(100%);
@@ -325,6 +340,11 @@
       position: relative;
       overflow: hidden;
       border-radius: 0;
+    }
+
+    .menu-card img {
+      transform-origin: center center;
+      will-change: transform;
     }
 
     .menu-card::before {
@@ -837,8 +857,8 @@
   <div class="max-w-full mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch min-h-screen md:min-h-[700px]">
       <!-- Image -->
-      <div class="overflow-hidden order-2 md:order-1 h-[500px] md:h-auto">
-        <img src="{{ asset('assets/images/minuman.jpg') }}" alt="minuman" class="w-full h-full object-cover" loading="lazy">
+      <div class="overflow-hidden order-2 md:order-1 h-[500px] md:h-auto brewing-image-container">
+        <img src="{{ asset('assets/images/minuman.jpg') }}" alt="minuman" class="w-full h-full object-cover brewing-image transition-transform duration-700 ease-out" loading="lazy">
       </div>
       
       <!-- Content -->
