@@ -188,7 +188,6 @@
 
     /* Brewing Station Image Hover Effect */
     .brewing-image-container {
-      overflow: hidden;
       position: relative;
     }
 
@@ -197,8 +196,10 @@
       transform-origin: center center;
     }
 
-    .brewing-image-container:hover .brewing-image {
-      transform: scale(1.15);
+    @media (min-width: 768px) {
+      .brewing-image-container:hover .brewing-image {
+        transform: scale(1.15);
+      }
     }
 
     /* Mobile Menu */
@@ -644,7 +645,7 @@
 <section id="home" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
-    <img src="assets/images/bg.png" alt="Rumah Makan Jati" class="w-full h-full object-cover object-bottom">
+    <img src="{{ asset('assets/images/bg.png') }}" alt="Rumah Makan Jati" class="w-full h-full object-cover object-bottom" loading="lazy">
     <div class="absolute inset-0 hero-overlay"></div>
   </div>
 
@@ -852,12 +853,93 @@
   </div>
 </section>
 
+<!-- Event & Catering Section -->
+<section id="event" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden border-t-4 border-b-4 border-yellow-500">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0">
+    <img src="{{ asset('assets/images/event.jpeg') }}" alt="Event & Catering" class="w-full h-full object-cover object-bottom" loading="lazy">
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto scroll-animate">
+    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide">
+      EVENT<br>
+      <span class="text-4xl sm:text-5xl md:text-6xl">&</span><br>
+      CATERING
+    </h2>
+    
+    <div class="flex items-center justify-center gap-8 mb-12">
+      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
+      <div class="w-2 h-2 bg-white rotate-45"></div>
+      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
+    </div>
+
+    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
+      Jadikan momen spesial Anda tak terlupakan dengan layanan katering dan paket Event kami.
+    </p>
+
+    <!-- Pricelist Button -->
+    <a href="https://drive.google.com/file/d/1jrm_TiXaWiE0MHKh0sYmO7kzxRk-aKT4/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+      <span class="relative z-10">Event</span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </a>
+    <a href="https://drive.google.com/file/d/1WBUhh5gqOiIOfwCt9u4BE_SVuWZcKeOt/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+      <span class="relative z-10">Catering</span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </a>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/30"></div>
+  <div class="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/30"></div>
+</section>
+
+<!-- Nasi Box Section -->
+<section id="nasibox" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden border-t-4 border-b-4 border-yellow-500">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0">
+    <!-- Mobile Image (Portrait) -->
+    <img src="{{ asset('assets/images/nasibox.png') }}" alt="Nasi Box" class="md:hidden w-full h-full object-cover object-center" loading="lazy">
+    <!-- Desktop Image (Landscape) -->
+    <img src="{{ asset('assets/images/nasibox-land.png') }}" alt="Nasi Box" class="hidden md:block w-full h-full object-cover object-center" loading="lazy">
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto scroll-animate">
+    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide">
+      NASI BOX
+    </h2>
+    
+    <div class="flex items-center justify-center gap-8 mb-12">
+      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
+      <div class="w-2 h-2 bg-white rotate-45"></div>
+      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
+    </div>
+
+    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
+      Solusi praktis untuk acara Anda dengan paket nasi box yang lezat dan higienis
+    </p>
+
+    <!-- Pricelist Button -->
+    <a href="https://drive.google.com/file/d/YOUR_NASIBOX_LINK" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+      <span class="relative z-10">Lihat Menu Nasi Box</span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </a>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/30"></div>
+  <div class="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/30"></div>
+</section>
+
 <!-- Brewing Station Section -->
 <section class="bg-[#683017] py-0 border-t-4 border-b-4 border-yellow-500">
   <div class="max-w-full mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch min-h-screen md:min-h-[700px]">
       <!-- Image -->
-      <div class="overflow-hidden order-2 md:order-1 h-[500px] md:h-auto brewing-image-container">
+      <div class="order-2 md:order-1 h-[600px] md:h-auto overflow-hidden brewing-image-container bg-[#683017]">
         <img src="{{ asset('assets/images/minuman.jpg') }}" alt="minuman" class="w-full h-full object-cover brewing-image transition-transform duration-700 ease-out" loading="lazy">
       </div>
       
@@ -932,48 +1014,6 @@
       </div>
     </div>
   </div>
-</section>
-
-<!-- Event & Catering Section -->
-<section id="event" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
-  <!-- Background Image with Overlay -->
-  <div class="absolute inset-0">
-    <img src="assets/images/event.jpeg" alt="Event & Catering" class="w-full h-full object-cover object-bottom">
-    <div class="absolute inset-0 bg-black/60"></div>
-  </div>
-
-  <!-- Content -->
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto scroll-animate">
-    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide">
-      EVENT<br>
-      <span class="text-4xl sm:text-5xl md:text-6xl">&</span><br>
-      CATERING
-    </h2>
-    
-    <div class="flex items-center justify-center gap-8 mb-12">
-      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
-      <div class="w-2 h-2 bg-white rotate-45"></div>
-      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
-    </div>
-
-    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-      Jadikan momen spesial Anda tak terlupakan dengan layanan katering dan paket Event kami.
-    </p>
-
-    <!-- Pricelist Button -->
-    <a href="https://drive.google.com/file/d/1jrm_TiXaWiE0MHKh0sYmO7kzxRk-aKT4/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
-      <span class="relative z-10">Event</span>
-      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-    </a>
-    <a href="https://drive.google.com/file/d/1WBUhh5gqOiIOfwCt9u4BE_SVuWZcKeOt/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
-      <span class="relative z-10">Catering</span>
-      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-    </a>
-  </div>
-
-  <!-- Decorative Elements -->
-  <div class="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/30"></div>
-  <div class="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/30"></div>
 </section>
 
 <!-- Contact Section -->
