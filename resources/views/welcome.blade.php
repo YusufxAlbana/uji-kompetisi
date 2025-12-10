@@ -620,12 +620,12 @@
 </header>
 
 <!-- Hero Section -->
-<section 
-  id="home"
-  class="relative min-h-screen bg-cover bg-center flex items-center justify-center text-white overflow-hidden"
-  style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1920&q=80');"
->
-  <div class="absolute inset-0 hero-overlay hero-parallax"></div>
+<section id="home" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0">
+    <img src="assets/images/bg.jpg" alt="Rumah Makan Jati" class="w-full h-full object-cover">
+    <div class="absolute inset-0 hero-overlay"></div>
+  </div>
 
   <div class="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
     <h2 class="font-serif text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 animate-fade-in-down tracking-wide leading-tight">
@@ -911,6 +911,44 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- Event & Catering Section -->
+<section class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0">
+    <img src="assets/images/event.jpeg" alt="Event & Catering" class="w-full h-full object-cover object-bottom">
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto scroll-animate">
+    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide">
+      EVENT<br>
+      <span class="text-4xl sm:text-5xl md:text-6xl">&</span><br>
+      CATERING
+    </h2>
+    
+    <div class="flex items-center justify-center gap-8 mb-12">
+      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
+      <div class="w-2 h-2 bg-white rotate-45"></div>
+      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
+    </div>
+
+    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
+      Make your special moments unforgettable with our professional catering services and event packages
+    </p>
+
+    <!-- Pricelist Button -->
+    <a href="https://drive.google.com/file/d/YOUR_PRICELIST_LINK" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+      <span class="relative z-10">Pricelist</span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </a>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/30"></div>
+  <div class="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/30"></div>
 </section>
 
 <!-- Contact Section -->
