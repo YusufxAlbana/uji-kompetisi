@@ -573,7 +573,7 @@
       <a href="https://drive.google.com/file/d/1p3e6N0my2smstN89swwJdJja6VPgl1vj/view" class="text-white hover:text-yellow-400 transition-colors">Menu</a>
       <a href="#about" class="text-white hover:text-yellow-400 transition-colors">Tentang</a>
       <a href="#gallery" class="text-white hover:text-yellow-400 transition-colors">Galeri</a>
-      <a href="#gallery" class="text-white hover:text-yellow-400 transition-colors">Event & catering</a>
+      <a href="#event" class="text-white hover:text-yellow-400 transition-colors">Event & catering</a>
       <a href="#contact" class="text-white hover:text-yellow-400 transition-colors">Kontak</a>
     </nav>
 
@@ -935,7 +935,7 @@
 </section>
 
 <!-- Event & Catering Section -->
-<section class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+<section id="event" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <img src="assets/images/event.jpeg" alt="Event & Catering" class="w-full h-full object-cover object-bottom">
