@@ -183,7 +183,7 @@
     }
 
     .image-hover-zoom:hover img {
-      transform: scale(1.1);
+      transform: scale(1.0);
     }
 
     /* Mobile Menu */
@@ -937,7 +937,7 @@
     </div>
 
     <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-      Make your special moments unforgettable with our professional catering services and event packages
+      Jadikan momen spesial Anda tak terlupakan dengan layanan katering dan paket Event kami.
     </p>
 
     <!-- Pricelist Button -->
@@ -993,6 +993,35 @@
             Saturday	10.00 am–10.00 pm<br>
             Sunday	10.00 am–10.00 pm<br>
           </p>
+        </div>
+      </div>
+      
+      <!-- Google Maps -->
+      <div class="mt-12">
+        <h3 class="text-yellow-400 font-semibold mb-6 text-xl text-center">LOKASI KAMI</h3>
+        <div class="rounded-lg overflow-hidden shadow-2xl border-4 border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-300">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.9876543210!2d106.6890978!3d-6.3128396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e5305c376549%3A0x713136277b32d8ca!2sRumah%20Makan%20Jati!5e0!3m2!1sen!2sid!4v1733875200000!5m2!1sen!2sid" 
+            width="100%" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            class="w-full"
+          ></iframe>
+        </div>
+        <div class="text-center mt-4">
+          <a 
+            href="https://www.google.com/maps/place/Rumah+Makan+Jati/@-6.3129628,106.6890978,18.01z/data=!4m6!3m5!1s0x2e69e5305c376549:0x713136277b32d8ca!8m2!3d-6.3128396!4d106.6915488!16s%2Fg%2F1hm1vrws1?entry=ttu" 
+            target="_blank"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105 shadow-lg"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            Buka di Google Maps
+          </a>
         </div>
       </div>
       
@@ -1298,15 +1327,15 @@
     animatedElements.forEach(el => observer.observe(el));
   });
 
-  // 9. Image hover effects
-  document.querySelectorAll('.image-hover-zoom').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.02)';
-    });
-    item.addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1)';
-    });
-  });
+  // 9. Image hover effects - Disabled to prevent overflow
+  // document.querySelectorAll('.image-hover-zoom').forEach(item => {
+  //   item.addEventListener('mouseenter', function() {
+  //     this.style.transform = 'scale(1.02)';
+  //   });
+  //   item.addEventListener('mouseleave', function() {
+  //     this.style.transform = 'scale(1)';
+  //   });
+  // });
 
   // 10. Feedback Form Handler
   const feedbackForm = document.getElementById('feedbackForm');
