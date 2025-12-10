@@ -553,6 +553,7 @@
       <a href="https://drive.google.com/file/d/1p3e6N0my2smstN89swwJdJja6VPgl1vj/view" class="text-white hover:text-yellow-400 transition-colors">Menu</a>
       <a href="#about" class="text-white hover:text-yellow-400 transition-colors">Tentang</a>
       <a href="#gallery" class="text-white hover:text-yellow-400 transition-colors">Galeri</a>
+      <a href="#gallery" class="text-white hover:text-yellow-400 transition-colors">Event & catering</a>
       <a href="#contact" class="text-white hover:text-yellow-400 transition-colors">Kontak</a>
     </nav>
 
@@ -623,7 +624,7 @@
 <section id="home" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
-    <img src="assets/images/bg.jpg" alt="Rumah Makan Jati" class="w-full h-full object-cover">
+    <img src="assets/images/bg.png" alt="Rumah Makan Jati" class="w-full h-full object-cover object-bottom">
     <div class="absolute inset-0 hero-overlay"></div>
   </div>
 
@@ -792,9 +793,9 @@
       
       <!-- Menu Item 6 - Es Mangga Serut -->
       <div class="scroll-animate menu-card aspect-square group cursor-pointer" style="animation-delay: 0.5s;">
-        <img src="{{ asset('assets/images/favMenu/es-kelapa-jeruk.png') }}" alt="Es Mangga Serut" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+        <img src="{{ asset('assets/images/favMenu/es-kelapa-jeruk.png') }}" alt="Es Kelapa jeruk" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
         <div class="menu-card-title">
-          <h4 class="text-white text-base md:text-xl font-bold mb-1">Es Mangga Serut</h4>
+          <h4 class="text-white text-base md:text-xl font-bold mb-1">Es kelapa Jeruk</h4>
           <p class="text-yellow-400 text-xs md:text-sm font-light">Sweet & Tangy</p>
         </div>
       </div>
@@ -836,7 +837,7 @@
   <div class="max-w-full mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch min-h-screen md:min-h-[700px]">
       <!-- Image -->
-      <div class="image-hover-zoom overflow-hidden order-2 md:order-1 h-[500px] md:h-auto">
+      <div class="overflow-hidden order-2 md:order-1 h-[500px] md:h-auto">
         <img src="{{ asset('assets/images/minuman.jpg') }}" alt="minuman" class="w-full h-full object-cover" loading="lazy">
       </div>
       
@@ -940,8 +941,12 @@
     </p>
 
     <!-- Pricelist Button -->
-    <a href="https://drive.google.com/file/d/YOUR_PRICELIST_LINK" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
-      <span class="relative z-10">Pricelist</span>
+    <a href="https://drive.google.com/file/d/1jrm_TiXaWiE0MHKh0sYmO7kzxRk-aKT4/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+      <span class="relative z-10">Event</span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </a>
+    <a href="https://drive.google.com/file/d/1WBUhh5gqOiIOfwCt9u4BE_SVuWZcKeOt/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+      <span class="relative z-10">Catering</span>
       <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
     </a>
   </div>
