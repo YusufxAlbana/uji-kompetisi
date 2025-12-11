@@ -645,7 +645,7 @@
 <section id="home" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
-    <img src="{{ asset('assets/images/bg.png') }}" alt="Rumah Makan Jati" class="w-full h-full object-cover object-bottom" loading="lazy">
+    <img src="{{ asset('assets/images/bg.jpg') }}" alt="Rumah Makan Jati" class="w-full h-full object-cover object-bottom" loading="lazy">
     <div class="absolute inset-0 hero-overlay"></div>
   </div>
 
@@ -863,11 +863,13 @@
 
   <!-- Content -->
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto scroll-animate">
-    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide">
-      EVENT<br>
-      <span class="text-4xl sm:text-5xl md:text-6xl">&</span><br>
-      CATERING
-    </h2>
+    <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide relative leading-tight" style="font-family: 'Playfair Display', serif !important;">
+      <!-- Glow Effect Behind Text -->
+      <span class="absolute inset-0 blur-3xl opacity-40 bg-yellow-400/60"></span>
+      <span class="relative" style="font-family: 'Playfair Display', serif !important;">EVENT</span><br>
+      <span class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl relative" style="font-family: 'Playfair Display', serif !important;">&</span><br>
+      <span class="relative" style="font-family: 'Playfair Display', serif !important;">CATERING</span>
+    </h1>
     
     <div class="flex items-center justify-center gap-8 mb-12">
       <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
@@ -875,57 +877,14 @@
       <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
     </div>
 
-    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-      Jadikan momen spesial Anda tak terlupakan dengan layanan katering dan paket Event kami.
-    </p>
-
     <!-- Pricelist Button -->
-    <a href="https://drive.google.com/file/d/1jrm_TiXaWiE0MHKh0sYmO7kzxRk-aKT4/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+    <a href="https://drive.google.com/file/d/1jrm_TiXaWiE0MHKh0sYmO7kzxRk-aKT4/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group rounded-tl-3xl">
       <span class="relative z-10">Event</span>
-      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-tl-3xl"></span>
     </a>
-    <a href="https://drive.google.com/file/d/1WBUhh5gqOiIOfwCt9u4BE_SVuWZcKeOt/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
+    <a href="https://drive.google.com/file/d/1WBUhh5gqOiIOfwCt9u4BE_SVuWZcKeOt/view" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group rounded-tr-3xl">
       <span class="relative z-10">Catering</span>
-      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-    </a>
-  </div>
-
-  <!-- Decorative Elements -->
-  <div class="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/30"></div>
-  <div class="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/30"></div>
-</section>
-
-<!-- Nasi Box Section -->
-<section id="nasibox" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden border-t-4 border-b-4 border-yellow-500">
-  <!-- Background Image with Overlay -->
-  <div class="absolute inset-0">
-    <!-- Mobile Image (Portrait) -->
-    <img src="{{ asset('assets/images/nasibox.png') }}" alt="Nasi Box" class="md:hidden w-full h-full object-cover object-center" loading="lazy">
-    <!-- Desktop Image (Landscape) -->
-    <img src="{{ asset('assets/images/nasibox-land.png') }}" alt="Nasi Box" class="hidden md:block w-full h-full object-cover object-center" loading="lazy">
-    <div class="absolute inset-0 bg-black/60"></div>
-  </div>
-
-  <!-- Content -->
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto scroll-animate">
-    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wide">
-      NASI BOX
-    </h2>
-    
-    <div class="flex items-center justify-center gap-8 mb-12">
-      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
-      <div class="w-2 h-2 bg-white rotate-45"></div>
-      <div class="hidden sm:block w-16 md:w-24 h-0.5 bg-white"></div>
-    </div>
-
-    <p class="text-lg sm:text-xl md:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-      Solusi praktis untuk acara Anda dengan paket nasi box yang lezat dan higienis
-    </p>
-
-    <!-- Pricelist Button -->
-    <a href="https://drive.google.com/file/d/YOUR_NASIBOX_LINK" class="inline-block px-12 py-4 border-2 border-white text-white font-light text-lg tracking-wider hover:bg-white hover:text-black transition-all duration-300 relative overflow-hidden group">
-      <span class="relative z-10">Lihat Menu Nasi Box</span>
-      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+      <span class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-tr-3xl"></span>
     </a>
   </div>
 
