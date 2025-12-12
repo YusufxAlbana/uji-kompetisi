@@ -908,7 +908,7 @@
             </svg>
           </div>
           
-          <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300">Event Organizer</h3>
+          <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300">Events</h3>
           <p class="text-gray-300 mb-6 leading-relaxed">
             Dari pernikahan, ulang tahun, hingga acara korporat. Kami siap mengatur segala kebutuhan acara Anda dengan detail yang sempurna.
           </p>
@@ -916,15 +916,15 @@
           <ul class="space-y-2 mb-6 text-sm text-gray-300">
             <li class="flex items-center gap-2">
               <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
-              Dekorasi & Setup Venue
+              Versatile venues
             </li>
             <li class="flex items-center gap-2">
               <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
-              Sound System & Entertainment
+              Table organisation
             </li>
             <li class="flex items-center gap-2">
               <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
-              Koordinasi Acara Lengkap
+              Varieties of menu
             </li>
           </ul>
         </div>
@@ -1027,7 +1027,7 @@
       <div class="scroll-animate order-1 md:order-2 flex items-center px-6 md:px-12 lg:px-16 py-16 md:py-20">
         <div class="max-w-xl">
           <div class="inline-block px-4 py-2 bg-yellow-400/20 rounded-full mb-6">
-            <span class="text-yellow-400 text-sm font-semibold tracking-wider">MINUMAN SPESIAL</span>
+            <span class="text-yellow-400 text-sm font-semibold tracking-wider">COFFEES</span>
           </div>
           
           <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
