@@ -805,7 +805,7 @@
       
       <!-- Menu Item 5 - Es Kelapa Muda -->
       <div class="scroll-animate menu-card aspect-square group cursor-pointer" style="animation-delay: 0.4s;">
-        <img src="{{ asset('assets/images/favMenu/es-kelapa.png') }}" alt="Es Kelapa Muda" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+        <img src="{{ asset('assets/images/favMenu/es-kelapa1.png') }}" alt="Es Kelapa Muda" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
         <div class="menu-card-title">
           <h4 class="text-white text-base md:text-xl font-bold mb-1">Es Kelapa Muda</h4>
           <p class="text-yellow-400 text-xs md:text-sm font-light">Natural & Fresh</p>
@@ -814,7 +814,7 @@
       
       <!-- Menu Item 6 - Es Mangga Serut -->
       <div class="scroll-animate menu-card aspect-square group cursor-pointer" style="animation-delay: 0.5s;">
-        <img src="{{ asset('assets/images/favMenu/es-kelapa-jeruk.png') }}" alt="Es Kelapa jeruk" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+        <img src="{{ asset('assets/images/favMenu/es-kelapa-jeruk1.png') }}" alt="Es Kelapa jeruk" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
         <div class="menu-card-title">
           <h4 class="text-white text-base md:text-xl font-bold mb-1">Es kelapa Jeruk</h4>
           <p class="text-yellow-400 text-xs md:text-sm font-light">Sweet & Tangy</p>
